@@ -4,594 +4,289 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Loading… · Remedy DS</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --bg: #ECEEF5; --surface: #ffffff; --surface-2: #F5F6FA; --border: #DDDFEB;
-  --text-primary: #1A1F3C; --text-secondary: #565C79; --text-muted: #8C92AF;
-  --accent: #005897; --accent-bg: #F4FAFF;
-  --green: #00853D; --green-bg: #F2F9F5;
-  --red: #CB333B; --red-bg: #FFF4F5;
+  --bg: #efeeea; --surface: #ffffff; --border: #e0deda; --border-2: #d8d7d3;
+  --ink: #1a1917; --ink-mid: #66645f; --ink-faint: #9a9893; --ink-inv: #faf9f5;
+  --btn: #1a1917; --btn-hover: #2e2d2a; --code-bg: #1c1c1c; --code-copy: #2e2d2a;
+  --purple: #7c3aed; --blue: #1d4ed8; --green: #065f46; --amber: #b45309; --red: #991b1b;
   --mono: 'DM Mono', monospace; --sans: 'DM Sans', sans-serif;
-  --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
 }
-
-body { font-family: var(--sans); background: var(--bg); color: var(--text-primary); min-height: 100vh; -webkit-font-smoothing: antialiased; }
-
-/* ─── HEADER ─── */
-.header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px); }
-.header-left { display: flex; align-items: center; gap: 12px; }
-.ds-pill { background: var(--text-primary); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 9px; border-radius: 5px; }
-.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); }
-.breadcrumb a { color: var(--text-muted); text-decoration: none; } .breadcrumb a:hover { color: var(--accent); }
-.breadcrumb span { color: var(--text-primary); font-weight: 500; }
-.breadcrumb-sep { color: var(--border); }
-.header-right { display: flex; align-items: center; gap: 16px; }
-.status { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--green); background: var(--green-bg); padding: 4px 12px; border-radius: 99px; }
-.status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
-.figma-btn { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted); text-decoration: none; font-family: var(--mono); padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.15s; }
-.figma-btn:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-bg); }
-
-/* ─── PAGE ─── */
-.page { max-width: 1160px; margin: 0 auto; padding: 48px 40px; }
-.comp-header { margin-bottom: 8px; display: flex; align-items: baseline; gap: 16px; }
-.comp-name { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
-.comp-variant-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-bg); padding: 3px 8px; border-radius: 4px; }
-.comp-desc { font-size: 14px; color: var(--text-secondary); margin-bottom: 48px; max-width: 520px; line-height: 1.6; }
-
-/* ─── SECTIONS ─── */
-.section { margin-bottom: 48px; }
-.section-title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-.section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
-/* ─── PREVIEW ─── */
-.preview-shell { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
-.preview-bar { background: var(--surface-2); border-bottom: 1px solid var(--border); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
-.window-dots { display: flex; gap: 6px; }
-.window-dot { width: 10px; height: 10px; border-radius: 50%; }
-.preview-meta { font-size: 11px; font-family: var(--mono); color: var(--text-muted); }
-.preview-stage { padding: 56px 40px; display: flex; justify-content: center; align-items: center; background: radial-gradient(ellipse at 30% 20%, rgba(203,51,59,0.04) 0%, transparent 60%), repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(221,223,235,0.4) 23px, rgba(221,223,235,0.4) 24px), repeating-linear-gradient(90deg, transparent, transparent 23px, rgba(221,223,235,0.4) 23px, rgba(221,223,235,0.4) 24px); }
-
-/* ─── ANATOMY ─── */
-.anatomy-wrap { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-md); display: grid; grid-template-columns: auto 1fr; overflow: visible; }
-.anatomy-stage { padding: 40px 64px 40px 40px; background: var(--surface-2); border-right: 1px solid var(--border); border-radius: var(--r-md) 0 0 var(--r-md); display: flex; align-items: flex-start; justify-content: center; min-width: 0; }
-.anatomy-annotated { position: relative; display: inline-block; }
-.ann-num { position: absolute; width: 20px; height: 20px; border-radius: 50%; background: var(--text-primary); color: white; font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; z-index: 10; cursor: default; box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
-.anatomy-legend { padding: 32px; display: flex; flex-direction: column; justify-content: center; gap: 20px; border-radius: 0 var(--r-md) var(--r-md) 0; }
-.legend-item { display: flex; align-items: flex-start; gap: 12px; }
-.legend-num { width: 20px; height: 20px; border-radius: 50%; background: var(--text-primary); color: white; font-size: 9px; font-weight: 700; flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
-.legend-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
-.legend-text strong { color: var(--text-primary); font-weight: 600; }
-.legend-sub { font-size: 11px; color: var(--text-muted); font-family: var(--mono); margin-top: 3px; }
-
-/* ─── SPACING INSPECTOR ─── */
-.insp-layout { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; }
-.insp-panel { display: flex; flex-direction: column; gap: 12px; position: sticky; top: 80px; }
-.token-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; transition: box-shadow 0.15s; }
-.tc-header { padding: 12px 16px; background: var(--surface-2); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
-.tc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); transition: background 0.2s; flex-shrink: 0; }
-.tc-label { font-size: 11px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; }
-.tc-body { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
-.tc-field-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
-.tc-token-box { font-family: var(--mono); font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-bg); padding: 7px 10px; border-radius: 6px; min-height: 32px; display: flex; align-items: center; }
-.tc-value { font-family: var(--mono); font-size: 22px; font-weight: 700; color: var(--text-primary); }
-.tc-cssvar { font-family: var(--mono); font-size: 9px; color: var(--text-secondary); line-height: 1.6; word-break: break-all; }
-.tc-copy-bar { padding: 10px 16px; border-top: 1px solid var(--border); background: var(--surface-2); display: flex; justify-content: flex-end; }
-.tc-copy-btn { font-family: var(--mono); font-size: 10px; color: var(--accent); background: var(--accent-bg); border: 1px solid rgba(0,88,151,0.2); border-radius: 4px; padding: 4px 12px; cursor: pointer; transition: all 0.15s; }
-.tc-copy-btn:hover { background: var(--accent); color: #fff; }
-
-/* ─── SPEC CARD ─── */
-.spec-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; }
-.spec-card-head { padding: 10px 16px; background: var(--surface-2); border-bottom: 1px solid var(--border); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
-.t-row { display: grid; grid-template-columns: 110px 1fr auto; align-items: center; padding: 11px 16px; border-bottom: 1px solid var(--border); gap: 12px; transition: background 0.12s; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--bg); color: var(--ink); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+.spec-header { background: var(--bg); border-bottom: 1px solid var(--border); padding: 0 24px; height: 52px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; gap: 16px; }
+.header-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.back-link { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--ink-mid); text-decoration: none; flex-shrink: 0; transition: color 0.12s; }
+.back-link:hover { color: var(--ink); }
+.header-div { width: 1px; height: 16px; background: var(--border-2); flex-shrink: 0; }
+.lca-logo { display: flex; align-items: center; color: var(--ink); flex-shrink: 0; }
+.header-comp { min-width: 0; }
+.header-comp-name { font-size: 13px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.header-comp-sub { font-size: 11px; color: var(--ink-faint); white-space: nowrap; }
+.header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.share-btn { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--ink-mid); background: var(--surface); border: 1px solid var(--border); border-radius: 99px; padding: 5px 14px; cursor: pointer; transition: all 0.12s; }
+.share-btn:hover { border-color: var(--ink-mid); color: var(--ink); }
+.tab-pills { display: flex; align-items: center; gap: 2px; }
+.tab-pill { font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 99px; border: none; background: transparent; color: var(--ink-mid); cursor: pointer; transition: all 0.12s; white-space: nowrap; }
+.tab-pill.active { background: var(--btn); color: var(--ink-inv); }
+.tab-pill:hover:not(.active) { color: var(--ink); background: rgba(26,25,23,0.06); }
+main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+.spec-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 20px; }
+.spec-card-head { padding: 20px 24px 16px; border-bottom: 1px solid var(--border); }
+.spec-card-title { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 2px; }
+.spec-card-sub { font-size: 12px; color: var(--ink-faint); }
+.spec-card-body { padding: 24px; }
+.preview-controls { display: flex; align-items: center; gap: 6px; }
+.col-btn { font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 99px; border: 1px solid var(--border); background: var(--surface); color: var(--ink-mid); cursor: pointer; transition: all 0.12s; }
+.col-btn.active { background: var(--btn); color: var(--ink-inv); border-color: var(--btn); }
+.col-btn:hover:not(.active) { border-color: var(--ink-mid); }
+.preview-stage { background: var(--bg); border-radius: 12px; padding: 32px 24px; display: flex; justify-content: center; align-items: flex-start; overflow: auto; }
+.token-bar { margin-top: 16px; padding: 10px 16px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 11px; font-family: var(--mono); }
+.token-item { display: flex; align-items: center; gap: 5px; }
+.token-key { color: var(--purple); font-weight: 500; }
+.token-val { color: var(--ink-mid); }
+.token-name { color: var(--ink-faint); }
+.annotated-stage { background: var(--bg); border-radius: 12px; padding: 24px; overflow: auto; }
+.layer-list { display: flex; flex-direction: column; gap: 8px; }
+.layer-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border); }
+.layer-badge { font-family: var(--mono); font-size: 10px; font-weight: 700; padding: 3px 7px; border-radius: 4px; border: 1px solid; flex-shrink: 0; }
+.layer-name { font-size: 12px; font-weight: 600; color: var(--ink); }
+.layer-desc { font-size: 11px; color: var(--ink-mid); margin-top: 1px; }
+.colour-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.colour-tab { font-size: 12px; font-weight: 500; padding: 8px 16px; border: none; background: transparent; color: var(--ink-mid); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.12s; }
+.colour-tab.active { color: var(--ink); border-bottom-color: var(--purple); }
+.colour-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.colour-swatch-card { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.colour-swatch { height: 80px; width: 100%; }
+.colour-swatch-info { padding: 10px 12px; }
+.colour-swatch-name { font-size: 12px; font-weight: 600; color: var(--ink); }
+.colour-swatch-hex { font-size: 11px; font-family: var(--mono); color: var(--purple); margin-top: 2px; }
+.colour-swatch-use { font-size: 11px; color: var(--ink-faint); margin-top: 1px; }
+.spacing-table { width: 100%; border-collapse: collapse; }
+.spacing-table th { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+.spacing-table td { padding: 8px 12px; font-size: 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.spacing-table tr:last-child td { border-bottom: none; }
+.spacing-table tr.highlighted { background: rgba(124,58,237,0.05); }
+.spacing-table tr.highlighted td { color: var(--purple); font-weight: 600; }
+.sp-bar-wrap { display: flex; align-items: center; gap: 8px; }
+.sp-bar { height: 6px; background: var(--border-2); border-radius: 3px; }
+.sp-bar.lit { background: var(--purple); }
+.sp-token { font-family: var(--mono); font-size: 11px; }
+.sp-badge { font-family: var(--mono); font-size: 10px; background: rgba(124,58,237,0.1); color: var(--purple); padding: 2px 8px; border-radius: 4px; margin-left: 8px; }
+.used-badge { font-size: 10px; background: var(--purple); color: white; border-radius: 99px; padding: 2px 8px; font-family: var(--mono); }
+.code-block-wrap { position: relative; margin-bottom: 20px; }
+.code-block { background: var(--code-bg); border-radius: 12px; padding: 24px; font-family: var(--mono); font-size: 12px; line-height: 1.8; color: #d4d4d4; overflow-x: auto; white-space: pre; }
+.code-block .c-comment { color: #6a9955; }
+.code-block .c-keyword { color: #569cd6; }
+.code-block .c-string { color: #ce9178; }
+.code-block .c-type { color: #4ec9b0; }
+.code-block .c-prop { color: #9cdcfe; }
+.code-block .c-num { color: #b5cea8; }
+.copy-btn { position: absolute; top: 12px; right: 12px; font-family: var(--mono); font-size: 11px; background: var(--code-copy); color: var(--ink-faint); border: none; border-radius: 6px; padding: 4px 12px; cursor: pointer; transition: color 0.15s; }
+.copy-btn:hover { color: var(--ink-inv); }
+.insp-layout { display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: start; }
+.insp-stage { background: #1a1c28; border-radius: 12px; border: 1px solid rgba(255,255,255,0.07); overflow: hidden; }
+.insp-bar { padding: 8px 14px; background: #13141e; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; }
+.insp-dots { display: flex; gap: 5px; }
+.insp-dot { width: 9px; height: 9px; border-radius: 50%; }
+.insp-body { padding: 32px; position: relative; }
+.insp-hint { font-family: var(--mono); font-size: 10px; color: #3d4466; }
+.tc { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.tc-head { padding: 10px 14px; background: #f9f9f7; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 7px; }
+.tc-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+.tc-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-faint); }
+.tc-body { padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.tc-fl { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); margin-bottom: 5px; }
+.tc-tok { font-family: var(--mono); font-size: 11px; color: var(--blue); background: #eff6ff; padding: 6px 9px; border-radius: 5px; }
+.tc-val { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--ink); }
+.tc-css { font-family: var(--mono); font-size: 9px; color: var(--ink-mid); word-break: break-all; }
+.tc-foot { padding: 8px 14px; border-top: 1px solid var(--border); background: #f9f9f7; text-align: right; }
+.tc-copy { font-family: var(--mono); font-size: 10px; color: var(--blue); background: #eff6ff; border: 1px solid rgba(29,78,216,0.2); border-radius: 4px; padding: 3px 10px; cursor: pointer; }
+.t-row { display: grid; grid-template-columns: 100px 1fr auto; padding: 9px 14px; border-bottom: 1px solid var(--border); gap: 10px; align-items: center; font-size: 11px; }
 .t-row:last-child { border-bottom: none; }
-.t-row.tr-lit { background: rgba(0,88,151,0.07); }
-.t-prop { font-size: 12px; font-weight: 500; color: var(--text-secondary); }
-.t-token { font-family: var(--mono); font-size: 11px; background: var(--accent-bg); color: var(--accent); padding: 3px 8px; border-radius: 4px; display: inline-block; }
-.t-val { font-family: var(--mono); font-size: 11px; color: var(--text-muted); white-space: nowrap; }
-
-/* ─── COLOURS ─── */
-.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.color-row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--border); }
-.color-row:last-child { border-bottom: none; }
-.swatch { width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.07); }
-.color-meta { flex: 1; }
-.color-name { font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
-.color-token-name { font-family: var(--mono); font-size: 11px; color: var(--accent); }
-.color-hex { font-family: var(--mono); font-size: 11px; color: var(--text-muted); text-transform: uppercase; }
-.color-usage { font-size: 11px; color: var(--text-muted); text-align: right; }
-
-/* ─── TYPOGRAPHY ─── */
-.type-row { display: grid; grid-template-columns: 1fr auto; padding: 16px; border-bottom: 1px solid var(--border); gap: 24px; align-items: center; }
-.type-row:last-child { border-bottom: none; }
-.type-meta-col { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
-.type-token-badge { font-family: var(--mono); font-size: 11px; background: var(--accent-bg); color: var(--accent); padding: 3px 8px; border-radius: 4px; }
-.type-detail { font-family: var(--mono); font-size: 10px; color: var(--text-muted); }
-
-/* ─── CODE ─── */
-.code-wrap { background: #131629; border-radius: var(--r-md); overflow: hidden; border: 1px solid rgba(255,255,255,0.06); }
-.code-header { padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: space-between; }
-.code-lang { font-size: 11px; color: #565C79; font-family: var(--mono); }
-.copy-btn { font-size: 11px; color: #565C79; background: none; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; font-family: var(--mono); padding: 3px 10px; border-radius: 4px; transition: all 0.15s; }
-.copy-btn:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
-.code-body { padding: 20px; font-family: var(--mono); font-size: 12px; line-height: 2; overflow-x: auto; color: #DDDFEB; }
-.c-sel { color: #6ABBE9; } .c-prop { color: #8C92AF; } .c-val { color: #DDDFEB; }
-.c-tok { color: #FFAE58; } .c-cmt { color: #3D4466; font-style: italic; } .c-punc { color: #565C79; }
-.indent1 { display: block; padding-left: 20px; } .indent2 { display: block; padding-left: 40px; }
-
-/* ─── FOOTER ─── */
-.footer { border-top: 1px solid var(--border); margin-top: 16px; padding: 24px 40px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--text-muted); }
-.footer-token { font-family: var(--mono); font-size: 11px; }
-
-/* ─── INSPECTOR DARK ─── */
-@keyframes pulse2 { 0%{transform:translate(-50%,-50%) scale(0.8);opacity:0.8;} 100%{transform:translate(-50%,-50%) scale(2.2);opacity:0;} }
-.insp-active { outline: 2px solid #4D9EFF !important; }
+.t-row.lit { background: rgba(29,78,216,0.06); }
+.t-prop { color: var(--ink-mid); font-size: 11px; }
+.t-tok { font-family: var(--mono); font-size: 10px; background: #eff6ff; color: var(--blue); padding: 2px 7px; border-radius: 4px; }
+.t-v { font-family: var(--mono); font-size: 10px; color: var(--ink-faint); }
+.ann-num { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: var(--ink); color: white; font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; z-index: 10; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
 </style>
 </head>
 <body>
-
-<div class="header">
+<header class="spec-header">
   <div class="header-left">
-    <span class="ds-pill">Remedy DS</span>
-    <div class="breadcrumb">
-      <a href="index.html">Components</a>
-      <span class="breadcrumb-sep">/</span>
-      <span id="bc-category">—</span>
-      <span class="breadcrumb-sep">/</span>
-      <span id="bc-name">—</span>
+    <a class="back-link" href="index.html">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 2L3.5 6L7.5 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Library
+    </a>
+    <div class="header-div"></div>
+    <span class="lca-logo"><svg height="22" viewBox="0 0 130 57" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block"><path d="M28.3036 55.4941L19.3543 55.4428C13.9943 55.4072 8.68606 55.3717 3.52144 55.3717C-0.191506 55.3717 -1.44378 50.8301 2.10565 49.1097C6.98313 47.3341 7.80867 46.2884 9.63523 39.8133C11.8646 31.9611 13.9464 24.7126 16.6703 14.122C17.767 9.78163 17.4958 8.40848 14.0541 6.45925C12.2076 4.86118 13.1488 1.0653 16.439 1.02979H32.3915C35.7136 1.0653 36.6787 5.52408 33.7793 7.10242C29.2767 9.02009 27.9846 10.1368 26.84 14.3036C23.8808 24.9967 21.8907 32.3557 19.773 40.204C17.779 47.5669 18.6803 48.9834 24.5269 48.9834H25.6037C31.9488 48.8769 38.8403 47.6537 43.8254 39.6713C45.979 36.2108 51.0519 38.0535 49.6202 42.1374C48.4716 45.2388 47.2871 48.3995 46.0308 51.6074C44.9022 54.3932 43.4107 55.4743 40.5791 55.5098C38.3417 55.5138 30.517 55.5138 28.3036 55.4941Z" fill="currentColor"/><path d="M45.0139 26.5949C48.9223 11.4429 61.2057 0 78.3307 0C82.8706 0.00800771 87.3718 0.824669 91.6192 2.4109C94.2912 3.46049 95.4039 5.00331 94.9891 8.1797C94.5903 10.7879 94.0918 13.4474 93.7169 16.6593C93.1426 20.6051 86.8135 21.1299 86.6858 16.1976C86.5303 9.6515 82.8134 6.60137 76.56 6.60137C67.0403 6.60137 59.8498 14.8324 56.2644 27.5892C52.6033 40.5237 55.5266 49.8555 65.4371 49.8555C78.0157 49.8555 85.302 44.793 90.0359 36.9527C92.2054 33.3699 94.3071 38.7796 92.9472 42.7886C91.8864 45.8742 85.5213 46.2885 84.2651 49.1453C83.1364 51.718 81.7924 52.8859 78.6538 53.8803C74.7454 55.1035 70.0474 56.3267 64.811 56.3267C48.9063 56.3109 40.5113 43.7671 45.0139 26.5949Z" fill="currentColor"/><path d="M77.5488 49.0035C82.5898 47.5277 83.5031 46.9793 86.7215 42.047C95.2401 29.0258 103.328 15.827 112.114 2.37958C114.507 -1.20718 118.946 -0.264126 119.293 3.56333C120.692 16.0716 122.02 28.8166 123.632 42.118C124.242 47.2476 124.852 47.9539 128.019 49.2679C131.014 50.8462 129.901 55.3326 125.65 55.3878C119.592 55.4589 114.156 55.4589 108.899 55.3878C104.648 55.3326 104.417 50.4713 107.894 49.1061C113.147 47.5988 114.08 46.9082 113.757 43.5188C113.613 42.118 113.418 40.7133 113.147 39.3836C112.896 38.2472 111.751 37.5764 109.725 37.5764H100.887C98.7537 37.5764 97.298 38.2827 96.3847 39.5966C95.4825 40.8545 94.7077 42.1973 94.0716 43.6056C92.3528 47.0148 92.2251 48.3406 95.9022 49.4257C98.8773 51.004 97.641 55.2813 93.5532 55.3878C88.1931 55.5299 83.7065 55.4589 78.829 55.3878C74.5896 55.3168 74.2666 50.1912 77.5488 49.0035ZM104.931 31.3301H109.717C111.635 31.3301 112.373 30.4818 112.174 28.568C111.871 25.6757 111.619 23.5489 111.312 20.992C111.097 19.0783 109.342 18.81 108.373 20.3726C106.706 23.0676 105.127 25.8533 103.619 28.355C102.53 30.1266 103.085 31.3301 104.931 31.3301Z" fill="currentColor"/></svg></span>
+    <div class="header-div"></div>
+    <div class="header-comp">
+      <div class="header-comp-name" id="hdr-name">Loading…</div>
+      <div class="header-comp-sub" id="hdr-sub">—</div>
     </div>
   </div>
   <div class="header-right">
-    <span class="status" id="hdr-status"><span class="status-dot"></span>Published</span>
-    <a class="figma-btn" id="figma-link" href="#" target="_blank">
-      <svg viewBox="0 0 38 57" fill="none" width="12" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M19 28.5C19 25.98 20 23.56 21.78 21.78C23.56 20 25.98 19 28.5 19C31.02 19 33.44 20 35.22 21.78C37 23.56 38 25.98 38 28.5C38 31.02 37 33.44 35.22 35.22C33.44 37 31.02 38 28.5 38C25.98 38 23.56 37 21.78 35.22C20 33.44 19 31.02 19 28.5Z" fill="currentColor"/></svg>
-      Open in Figma
-    </a>
+    <button class="share-btn" onclick="navigator.clipboard.writeText(location.href);this.textContent='Copied!'">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      Share link
+    </button>
+    <div class="tab-pills">
+      <button class="tab-pill active" data-tab="design" onclick="switchTab('design')">Design Specs</button>
+      <button class="tab-pill" data-tab="foundations" onclick="switchTab('foundations')">Foundations</button>
+      <button class="tab-pill" data-tab="code" onclick="switchTab('code')">Code Reference</button>
+    </div>
   </div>
-</div>
-
-<div class="page" id="page-content">
-  <div style="color:var(--text-muted);padding:64px;text-align:center;">Loading component…</div>
-</div>
-
-<div class="footer" id="page-footer" style="display:none;">
-  <span id="footer-meta">Remedy Design System · Loblaw Digital</span>
-  <span class="footer-token" id="footer-tokens">—</span>
-</div>
-
+</header>
+<main id="main-content">
+  <div style="text-align:center;padding:80px;color:var(--ink-faint);font-family:var(--mono);font-size:13px;">Loading…</div>
+</main>
 <script>
-// ─── LOAD DATA ───────────────────────────────────────────────────────────────
-async function init() {
-  const params = new URLSearchParams(location.search);
-  const compId = params.get('id');
-
-  const res = await fetch('data/components.json');
-  const data = await res.json();
-  const comp = data.components.find(c => c.id === compId);
-
-  if (!comp) {
-    document.getElementById('page-content').innerHTML = `
-      <div style="text-align:center;padding:80px;color:var(--text-muted);">
-        <div style="font-size:40px;margin-bottom:16px;">🔍</div>
-        <h2 style="color:var(--text-secondary);margin-bottom:8px;">Component not found</h2>
-        <p>No component with id <code>${compId}</code> exists in the registry.</p>
-        <a href="index.html" style="color:var(--accent);margin-top:16px;display:inline-block;">← Back to library</a>
-      </div>`;
-    return;
-  }
-
-  document.title = `${comp.name}${comp.variant ? ' / ' + comp.variant : ''} · Remedy DS`;
-
-  // Header
-  document.getElementById('bc-category').textContent = comp.category;
-  document.getElementById('bc-name').textContent = comp.name;
-  if (comp.status !== 'published') {
-    const s = document.getElementById('hdr-status');
-    s.textContent = 'Draft'; s.querySelector('.status-dot').style.background = 'var(--text-muted)';
-    s.style.color = 'var(--text-muted)'; s.style.background = 'var(--surface-2)';
-  }
-  const figmaUrl = `https://www.figma.com/design/${comp.figmaFileId}/?node-id=${comp.figmaNodeId}`;
-  document.getElementById('figma-link').href = figmaUrl;
-
-  // Footer
-  document.getElementById('footer-meta').textContent = `Remedy Design System · Loblaw Digital · Node ${comp.figmaNodeId}`;
-  document.getElementById('footer-tokens').textContent = data._meta.tokenSet;
-  document.getElementById('page-footer').style.display = 'flex';
-
-  // Render page
-  renderPage(comp);
+let COMP=null,activeTab='design';
+function switchTab(tab){activeTab=tab;document.querySelectorAll('.tab-pill').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));document.querySelectorAll('.tab-content').forEach(c=>c.classList.toggle('active',c.id==='tab-'+tab));}
+async function init(){
+  const params=new URLSearchParams(location.search);
+  const id=params.get('id');
+  const data=await fetch('data/components.json').then(r=>r.json());
+  COMP=data.components.find(c=>c.id===id);
+  if(!COMP){document.getElementById('main-content').innerHTML='<div style="text-align:center;padding:80px;color:var(--ink-faint)">Not found. <a href="index.html" style="color:var(--blue)">← Back</a></div>';return;}
+  document.title=COMP.name+' · Remedy DS';
+  document.getElementById('hdr-name').textContent=COMP.name;
+  document.getElementById('hdr-sub').textContent=['Dev Handoff',COMP.anatomy?COMP.anatomy.length+' Parts':null,'Remedy DS'].filter(Boolean).join(' · ');
+  renderAll();switchTab('design');
 }
-
-// ─── RENDER ALL SECTIONS ────────────────────────────────────────────────────
-function renderPage(comp) {
-  const html = buildDevModeHtml(comp.devModeHtml, 'prev');
-
-  const page = document.getElementById('page-content');
-  page.innerHTML = `
-    <div class="comp-header">
-      <h1 class="comp-name">${comp.name}</h1>
-      ${comp.variant ? `<span class="comp-variant-tag">${comp.variant}</span>` : ''}
-    </div>
-    <p class="comp-desc">${comp.description || ''}</p>
-
-    <!-- 1. PREVIEW -->
-    <div class="section">
-      <div class="section-title">Live Preview</div>
-      <div class="preview-shell">
-        <div class="preview-bar">
-          <div class="window-dots">
-            <div class="window-dot" style="background:#FF5F57"></div>
-            <div class="window-dot" style="background:#FFBD2E"></div>
-            <div class="window-dot" style="background:#28CA41"></div>
-          </div>
-          <span class="preview-meta">${comp.name}${comp.variant ? ' / ' + comp.variant : ''} · Default</span>
-          <span style="font-size:11px;color:var(--text-muted);font-family:var(--mono);">${comp.dimensions?.width || ''}${comp.dimensions?.width ? 'px' : ''}</span>
-        </div>
-        <div class="preview-stage">
-          ${buildDevModeHtml(comp.devModeHtml, 'live')}
-        </div>
-      </div>
-    </div>
-
-    <!-- 2. ANATOMY -->
-    <div class="section">
-      <div class="section-title">Anatomy</div>
-      <div class="anatomy-wrap">
-        <div class="anatomy-stage">
-          <div class="anatomy-annotated" id="anatomy-root" style="position:relative;display:inline-block;">
-            ${buildDevModeHtml(comp.devModeHtml, 'anat')}
-            ${comp.anatomy.map(a => `<div class="ann-num" id="ann-${a.id}" style="position:absolute;opacity:0;">${a.id}</div>`).join('')}
-            <svg id="ann-svg" style="position:absolute;top:0;left:0;pointer-events:none;overflow:visible;" width="0" height="0"></svg>
-          </div>
-        </div>
-        <div class="anatomy-legend">
-          ${comp.anatomy.map(a => `
-            <div class="legend-item">
-              <div class="legend-num">${a.id}</div>
-              <div>
-                <div class="legend-text"><strong>${a.label}</strong></div>
-                ${a.sub ? `<div class="legend-sub">${a.sub}</div>` : ''}
-              </div>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. SPACING INSPECTOR -->
-    <div class="section">
-      <div class="section-title">Spacing &amp; Layout</div>
-      <div class="insp-layout">
-        <!-- Inspector stage -->
-        <div style="background:#1A1C28;border-radius:16px;border:1px solid rgba(255,255,255,0.07);overflow:hidden;width:fit-content;">
-          <div style="padding:9px 16px;background:#13141E;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;">
-            <div style="display:flex;gap:6px;">
-              <div style="width:10px;height:10px;border-radius:50%;background:#FF5F57;"></div>
-              <div style="width:10px;height:10px;border-radius:50%;background:#FFBD2E;"></div>
-              <div style="width:10px;height:10px;border-radius:50%;background:#28CA41;"></div>
-            </div>
-            <span style="font-family:var(--mono);font-size:11px;color:#3D4466;">hover elements to inspect</span>
-            <span style="font-family:var(--mono);font-size:10px;color:#2A2D45;">${comp.dimensions?.width || ''}${comp.dimensions?.width ? 'px' : ''}</span>
-          </div>
-          <div style="padding:48px 40px;position:relative;">
-            <div id="insp-root" style="position:relative;width:${comp.dimensions?.width || 360}px;">
-              ${buildDevModeHtml(comp.devModeHtml, 'comp')}
-              <canvas id="meas-canvas" style="position:absolute;top:0;left:0;pointer-events:none;z-index:100;"></canvas>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right panel -->
-        <div class="insp-panel">
-          <div class="token-card" id="token-card">
-            <div class="tc-header" id="tc-header">
-              <div class="tc-dot" id="tc-dot"></div>
-              <span class="tc-label" id="tc-label">Hover an element</span>
-            </div>
-            <div class="tc-body">
-              <div>
-                <div class="tc-field-label">Token</div>
-                <div class="tc-token-box" id="tc-token">—</div>
-              </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-                <div>
-                  <div class="tc-field-label">Value</div>
-                  <div class="tc-value" id="tc-value">—</div>
-                </div>
-                <div>
-                  <div class="tc-field-label">CSS Variable</div>
-                  <div class="tc-cssvar" id="tc-cssvar">—</div>
-                </div>
-              </div>
-            </div>
-            <div class="tc-copy-bar">
-              <button class="tc-copy-btn" id="tc-copy" onclick="copyCurrentToken()">copy var()</button>
-            </div>
-          </div>
-
-          <div class="spec-card">
-            <div class="spec-card-head">All Layout Tokens</div>
-            ${comp.spacingTable.map(row => `
-              <div class="t-row" id="${row.id}">
-                <span class="t-prop">${row.prop}</span>
-                <span class="t-token">${row.token}</span>
-                <span class="t-val">${row.value}</span>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4. COLOURS -->
-    <div class="section">
-      <div class="section-title">Colour Tokens</div>
-      <div class="two-col">
-        ${comp.colors.map(group => `
-          <div class="spec-card">
-            <div class="spec-card-head">${group.group}</div>
-            ${group.items.map(item => `
-              <div class="color-row">
-                <div class="swatch" style="background:${item.transparent ? 'transparent' : item.hex};${item.border ? 'border:1px solid #DDDFEB;' : ''}${item.transparent ? 'background-image:repeating-linear-gradient(45deg,#DDDFEB 0,#DDDFEB 1px,transparent 0,transparent 50%);background-size:6px 6px;' : ''}"></div>
-                <div class="color-meta">
-                  <div class="color-name">${item.name}</div>
-                  <div class="color-token-name">${item.token || '—'}</div>
-                </div>
-                <div>
-                  <div class="color-hex">${item.transparent ? 'transparent' : item.hex}</div>
-                  <div class="color-usage" style="margin-top:2px;">${item.usage}</div>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        `).join('')}
-      </div>
-    </div>
-
-    <!-- 5. TYPOGRAPHY -->
-    <div class="section">
-      <div class="section-title">Typography</div>
-      <div class="spec-card">
-        <div class="spec-card-head">Text Styles</div>
-        ${comp.typography.map(t => `
-          <div class="type-row">
-            <div>
-              ${t.sampleBg
-                ? `<button style="background:${t.sampleBg};border:none;border-radius:24px;padding:10px 24px;cursor:pointer;"><span style="${t.sampleStyle}">${t.sampleText}</span></button>`
-                : `<div style="${t.sampleStyle}">${t.sampleText}</div>`
-              }
-              <div style="font-size:11px;color:var(--text-muted);margin-top:${t.sampleBg ? 8 : 4}px;">${t.label}</div>
-            </div>
-            <div class="type-meta-col">
-              <span class="type-token-badge">${t.token}</span>
-              <span class="type-detail">${t.detail}</span>
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-
-    <!-- 6. CSS OUTPUT -->
-    <div class="section">
-      <div class="section-title">CSS Output</div>
-      <div class="code-wrap">
-        <div class="code-header">
-          <span class="code-lang">css · ${comp.name} container</span>
-          <button class="copy-btn" id="css-copy-btn" onclick="copyCss()">Copy</button>
-        </div>
-        <div class="code-body" id="css-body">${syntaxHighlightCss(comp.cssOutput)}</div>
-      </div>
-    </div>
-  `;
-
-  // Run post-render JS
-  requestAnimationFrame(() => {
-    positionAnatomyDots(comp);
-    initSpacingInspector(comp);
-  });
-
-  // Store CSS for copy
-  window._cssOutput = comp.cssOutput;
+function renderAll(){
+  const m=document.getElementById('main-content');
+  m.innerHTML='<div id="tab-design" class="tab-content active">'+renderDesign()+'</div><div id="tab-foundations" class="tab-content">'+renderFoundations()+'</div><div id="tab-code" class="tab-content">'+renderCode()+'</div>';
+  requestAnimationFrame(()=>{initInspector();positionAnatomy();});
 }
-
-// ─── HTML BUILDER ────────────────────────────────────────────────────────────
-function buildDevModeHtml(template, prefix) {
-  if (!template) return '<div style="color:#8C92AF;padding:24px;text-align:center;">No preview HTML</div>';
-  return template.replace(/\{\{ID\}\}/g, prefix);
+function buildHtml(t,pfx){if(!t)return'<div style="color:#9a9893;padding:24px;text-align:center;font-family:DM Mono,monospace;">No preview</div>';return t.replace(/{{ID}}/g,pfx);}
+function renderDesign(){
+  const palettes=[{l:'#ede9fe',h:'#7c3aed',b:'#ddd6fe'},{l:'#dbeafe',h:'#1d4ed8',b:'#bfdbfe'},{l:'#fef3c7',h:'#b45309',b:'#fde68a'},{l:'#d1fae5',h:'#065f46',b:'#a7f3d0'},{l:'#fee2e2',h:'#991b1b',b:'#fecaca'},{l:'#f3f4f6',h:'#374151',b:'#e5e7eb'}];
+  const layers=COMP.anatomy.map((a,i)=>{const p=palettes[i%palettes.length];const s=a.label.slice(0,4).toUpperCase();return'<div class="layer-item"><span class="layer-badge" style="background:'+p.l+';color:'+p.h+';border-color:'+p.b+'">'+s+'</span><div><div class="layer-name">'+a.label+'</div>'+(a.sub?'<div class="layer-desc">'+a.sub+'</div>':'')+'</div></div>';}).join('');
+  const tokenBar=(COMP.spacingTable||[]).slice(0,5).map(t=>'<span class="token-item"><span class="token-key">'+t.prop+'</span><span class="token-val"> '+t.value+'</span><span class="token-name"> · '+t.token+'</span></span>').join('');
+  const trows=(COMP.spacingTable||[]).map(r=>'<div class="t-row" id="'+r.id+'"><span class="t-prop">'+r.prop+'</span><span class="t-tok">'+r.token+'</span><span class="t-v">'+r.value+'</span></div>').join('');
+  const annDots=COMP.anatomy.map(a=>'<div class="ann-num" id="ann-'+a.id+'" style="opacity:0;">'+a.id+'</div>').join('');
+  return `
+    <div class="spec-card">
+      <div class="spec-card-head" style="display:flex;align-items:center;justify-content:space-between;">
+        <div><div class="spec-card-title">Live Preview</div><div class="spec-card-sub">Real component · exact tokens</div></div>
+        <div class="preview-controls" id="col-ctrls">
+          ${[1,2,3,4].map(c=>'<button class="col-btn'+(c===3?' active':'')+'" onclick="setCol('+c+')">'+(c===1?'1 col':c+' cols')+'</button>').join('')}
+        </div>
+      </div>
+      <div class="spec-card-body">
+        <div class="preview-stage" id="prev-stage">${buildHtml(COMP.devModeHtml,'live')}</div>
+        <div class="token-bar">${tokenBar}</div>
+      </div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-card-head"><div class="spec-card-title">Annotated Preview</div><div class="spec-card-sub">Frame widths · spacing tokens · anatomy callouts</div></div>
+      <div class="spec-card-body"><div class="annotated-stage" id="anatomy-root" style="position:relative;">${buildHtml(COMP.devModeHtml,'anat')}${annDots}<svg id="ann-svg" style="position:absolute;top:0;left:0;pointer-events:none;overflow:visible;" width="0" height="0"></svg></div></div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-card-head"><div class="spec-card-title">Anatomy</div><div class="spec-card-sub">${COMP.anatomy.length} parts · layer structure</div></div>
+      <div class="spec-card-body"><div class="layer-list">${layers}</div></div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-card-head"><div class="spec-card-title">Spacing &amp; Layout</div><div class="spec-card-sub">Hover elements to inspect tokens</div></div>
+      <div class="spec-card-body">
+        <div class="insp-layout">
+          <div class="insp-stage">
+            <div class="insp-bar"><div class="insp-dots"><div class="insp-dot" style="background:#ff5f57"></div><div class="insp-dot" style="background:#ffbd2e"></div><div class="insp-dot" style="background:#28ca41"></div></div><span class="insp-hint">hover to inspect</span><span style="font-family:var(--mono);font-size:10px;color:#2a2d45;">${COMP.dimensions?.width||''}px</span></div>
+            <div class="insp-body"><div id="insp-root" style="position:relative;width:${COMP.dimensions?.width||360}px;">${buildHtml(COMP.devModeHtml,'comp')}<canvas id="meas-canvas" style="position:absolute;top:0;left:0;pointer-events:none;z-index:100;"></canvas></div></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div class="tc" id="token-card">
+              <div class="tc-head" id="tc-head"><div class="tc-dot" id="tc-dot"></div><span class="tc-label" id="tc-label">Hover an element</span></div>
+              <div class="tc-body"><div><div class="tc-fl">Token</div><div class="tc-tok" id="tc-token">—</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><div><div class="tc-fl">Value</div><div class="tc-val" id="tc-value">—</div></div><div><div class="tc-fl">CSS Variable</div><div class="tc-css" id="tc-cssvar">—</div></div></div></div>
+              <div class="tc-foot"><button class="tc-copy" onclick="copyToken()">copy var()</button></div>
+            </div>
+            <div class="tc">
+              <div style="padding:8px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-faint);border-bottom:1px solid var(--border);">All Layout Tokens</div>
+              ${trows}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
 }
-
-// ─── ANATOMY DOTS ────────────────────────────────────────────────────────────
-function positionAnatomyDots(comp) {
-  const root = document.getElementById('anatomy-root');
-  if (!root) return;
-  const rootR = root.getBoundingClientRect();
-  const svg = document.getElementById('ann-svg');
-  svg.innerHTML = '';
-  svg.setAttribute('width', rootR.width);
-  svg.setAttribute('height', rootR.height);
-  const DOT = 20, GAP = 16;
-
-  comp.anatomy.forEach(({ id, targetSuffix, anchorX, anchorY }) => {
-    const el = document.getElementById(`anat-${targetSuffix}`);
-    const dotEl = document.getElementById(`ann-${id}`);
-    if (!el || !dotEl) return;
-    const r = el.getBoundingClientRect();
-    const ex = r.right - rootR.left;
-    const ey = anchorY === 'top' ? r.top - rootR.top : anchorY === 'bottom' ? r.bottom - rootR.top : (r.top + r.bottom) / 2 - rootR.top;
-    const dx = ex + GAP + DOT / 2, dy = ey;
-    dotEl.style.left = (dx - DOT / 2) + 'px';
-    dotEl.style.top  = (dy - DOT / 2) + 'px';
-    dotEl.style.opacity = '1';
-
-    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    line.setAttribute('x1', ex); line.setAttribute('y1', ey);
-    line.setAttribute('x2', dx - DOT / 2); line.setAttribute('y2', dy);
-    line.setAttribute('stroke', '#3D4466'); line.setAttribute('stroke-width', '1');
-    line.setAttribute('stroke-dasharray', '3 2');
+function setCol(n){document.querySelectorAll('.col-btn').forEach(b=>b.classList.toggle('active',parseInt(b.textContent)===n));const s=document.getElementById('prev-stage');if(s&&s.firstElementChild)s.firstElementChild.style.transform=n<=2?'scale('+(n*0.5)+')':n===4?'scale(1.1)':'scale(1)';}
+function renderFoundations(){
+  const colGroups=COMP.colors.map((g,i)=>'<div class="colour-grid" id="cg-'+i+'" style="'+(i>0?'display:none':'')+'">'+(g.items.map(item=>'<div class="colour-swatch-card"><div class="colour-swatch" style="background:'+(item.transparent?'repeating-linear-gradient(45deg,#ddd 0,#ddd 1px,white 0,white 50%) 0/8px 8px':item.hex)+'"></div><div class="colour-swatch-info"><div class="colour-swatch-name">'+item.name+'</div><div class="colour-swatch-hex">'+(item.token||'—')+'</div><div class="colour-swatch-use">'+(item.transparent?'transparent':item.hex)+' · '+item.usage+'</div></div></div>').join(''))+'</div>').join('');
+  const colTabs=COMP.colors.map((g,i)=>'<button class="colour-tab'+(i===0?' active':'')+'" onclick="switchCG('+i+',this)">'+g.group+'</button>').join('');
+  const steps=[['sp-0','2pt'],['sp-1','4pt'],['sp-2','8pt'],['sp-3','12pt'],['sp-4','16pt'],['sp-5','20pt'],['sp-6','24pt'],['sp-8','32pt'],['sp-10','40pt'],['sp-12','48pt'],['sp-16','64pt'],['sp-20','80pt'],['sp-24','96pt'],['sp-32','128pt']];
+  const usedToks=(COMP.spacingTable||[]).map(r=>r.token.toLowerCase());
+  const spRows=steps.map(([tok,val])=>{const px=parseFloat(val)*1.33;const lit=usedToks.some(u=>u.includes(tok.replace('sp-','')));const badge=lit?'<span class="sp-badge">'+tok+'('+parseInt(val)+')</span>':'';return'<tr class="'+(lit?'highlighted':'')+'"><td><span class="sp-token">'+tok+'</span></td><td><div class="sp-bar-wrap"><div class="sp-bar'+(lit?' lit':'')+'" style="width:'+Math.min(px,200)+'px;"></div></div></td><td style="text-align:right;font-family:var(--mono);font-size:11px;">'+val+'</td><td>'+badge+'</td></tr>';}).join('');
+  const typoRows=COMP.typography.map(t=>'<div style="display:grid;grid-template-columns:1fr auto;padding:16px;border-bottom:1px solid var(--border);gap:20px;align-items:center;"><div>'+(t.sampleBg?'<button style="background:'+t.sampleBg+';border:none;border-radius:20px;padding:8px 20px;cursor:default;"><span style="'+t.sampleStyle+'">'+t.sampleText+'</span></button>':'<div style="'+t.sampleStyle+'">'+t.sampleText+'</div>')+'<div style="font-size:11px;color:var(--ink-faint);margin-top:6px;">'+t.label+'</div></div><div style="text-align:right;"><div style="font-family:var(--mono);font-size:11px;background:#ede9fe;color:#7c3aed;padding:3px 8px;border-radius:4px;margin-bottom:4px;display:inline-block;">'+t.token+'</div><div style="font-family:var(--mono);font-size:10px;color:var(--ink-faint);">'+t.detail+'</div></div></div>').join('');
+  return `
+    <div class="spec-card"><div class="spec-card-head"><div class="spec-card-title">Colours</div><div class="spec-card-sub">${COMP.colors.reduce((s,g)=>s+g.items.length,0)} values · ${COMP.colors.length} groups</div></div><div class="spec-card-body"><div class="colour-tabs">${colTabs}</div>${colGroups}</div></div>
+    <div class="spec-card"><div class="spec-card-head" style="display:flex;align-items:center;justify-content:space-between;"><div><div class="spec-card-title">Spacing</div><div class="spec-card-sub">App Foundations · sp-0 (2pt) → sp-32 (128pt)</div></div><span class="used-badge">● Used in Component</span></div><div class="spec-card-body" style="padding:0;"><table class="spacing-table"><thead><tr><th style="width:80px">Token</th><th>Scale</th><th style="width:60px;text-align:right">Value</th><th style="width:200px"></th></tr></thead><tbody>${spRows}</tbody></table></div></div>
+    <div class="spec-card"><div class="spec-card-head"><div class="spec-card-title">Typography</div><div class="spec-card-sub">Text styles used in this component</div></div><div class="spec-card-body" style="padding:0;">${typoRows}</div></div>`;
+}
+function switchCG(idx,btn){document.querySelectorAll('.colour-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('[id^="cg-"]').forEach((el,i)=>el.style.display=i===idx?'':'none');}
+function renderCode(){
+  const n=COMP.name.split(/[s-_]/).map(w=>w[0].toUpperCase()+w.slice(1)).join('');
+  const sp=COMP.spacingTable||[];
+  const pad=sp.find(s=>s.prop==='padding')?.value||'16px';
+  const gap=sp.find(s=>s.prop?.includes('gap'))?.value||'24px';
+  const colRows=(COMP.colors||[]).flatMap(g=>g.items).map(i=>'// '+(i.name||'').padEnd(22)+(i.token||'—').padEnd(32)+(i.transparent?'transparent':i.hex||'')).join('\n');
+  const spRows=sp.map(r=>'// '+r.prop.padEnd(18)+r.token.padEnd(28)+r.value).join('\n');
+  const tyRows=(COMP.typography||[]).map(t=>'// '+(t.label||'').padEnd(22)+(t.token||'').padEnd(28)+t.detail).join('\n');
+  const tokenMap='// MARK: — Design Tokens · '+COMP.name+' Component · Remedy DS\n\n// — Colours '+'—'.repeat(30)+'\n'+colRows+'\n\n// — Typography '+'—'.repeat(28)+'\n'+tyRows+'\n\n// — Spacing '+'—'.repeat(30)+'\n'+spRows+'\n\n// — Radius '+'—'.repeat(31)+'\n// Radius/large    .cornerRadius(20)    container\n// Radius/small    .cornerRadius(8)     image slot\n// Radius/full     .cornerRadius(999)   buttons';
+  const swift='import SwiftUI\n\nstruct '+n+': View {\n    var title: String = "'+COMP.name+'"\n    var description: String = "Component description"\n\n    private let paddingInset: CGFloat = '+parseFloat(pad)+'   // sp-4\n    private let contentGap: CGFloat   = '+parseFloat(gap)+'   // sp-6\n\n    var body: some View {\n        VStack(alignment: .leading, spacing: contentGap) {\n            // Image / media slot\n            RoundedRectangle(cornerRadius: 8) // Radius/small\n                .fill(Color(hex: 0xdddfeb))\n                .frame(height: 227)\n\n            // Text group\n            VStack(alignment: .leading, spacing: 4) {\n                Text(title)\n                    .font(.custom("SFProDisplay-Semibold", size: 20))\n                    .foregroundColor(Color(hex: 0x1a1f3c))\n\n                Text(description)\n                    .font(.custom("SFProText-Regular", size: 13))\n                    .foregroundColor(Color(hex: 0x565c79))\n                    .lineSpacing(5)\n            }\n\n            // Actions\n            VStack(spacing: 8) {\n                Button(action: {}) {\n                    Text("Primary Action")\n                        .font(.custom("SFProText-Semibold", size: 13))\n                        .foregroundColor(.white)\n                        .frame(maxWidth: .infinity)\n                        .padding(.vertical, 12)\n                }\n                .background(Color(hex: 0x1a1f3c))\n                .cornerRadius(999) // Radius/full\n\n                Button(action: {}) {\n                    Text("Not now")\n                        .font(.custom("SFProText-Semibold", size: 13))\n                        .foregroundColor(Color(hex: 0x1a1f3c))\n                        .frame(maxWidth: .infinity)\n                }\n                .background(Color.clear)\n            }\n        }\n        .padding(paddingInset) // sp-4\n        .background(Color.white)\n        .cornerRadius(20) // Radius/large\n        .frame(width: '+(COMP.dimensions?.width||358)+')\n    }\n}\n\nextension Color {\n    init(hex: UInt32, opacity: Double = 1.0) {\n        let r = Double((hex >> 16) & 0xFF) / 255.0\n        let g = Double((hex >> 8) & 0xFF) / 255.0\n        let b = Double(hex & 0xFF) / 255.0\n        self.init(.sRGB, red: r, green: g, blue: b, opacity: opacity)\n    }\n}\n\n#Preview {\n    '+n+'()\n        .padding()\n        .background(Color(hex: 0xf5f6fa))\n}';
+  const css=COMP.cssOutput||'/* No CSS output available */';
+  function hl(code,lang){let e=code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');if(lang==='swift'){return e.replace(/(// MARK:.*|//.*)/g,'<span class="c-comment">$1</span>').replace(/(import|struct|var|let|private|func|some|if|return|extension|init|Double|CGFloat|String|Bool)/g,'<span class="c-keyword">$1</span>').replace(/(View|Color|Text|Button|VStack|HStack|RoundedRectangle|Font)/g,'<span class="c-type">$1</span>').replace(/"([^"]*)"/g,'<span class="c-string">"$1"</span>').replace(/(d+.?d*)/g,'<span class="c-num">$1</span>');}if(lang==='comment'){return e.replace(/(// MARK:.*|//.*)/g,'<span class="c-comment">$1</span>').replace(/(d+.?d*)/g,'<span class="c-num">$1</span>');}return e.replace(/(/*.*?*/)/gs,'<span class="c-comment">$1</span>').replace(/([w-]+)s*:/g,'<span class="c-prop">$1</span>:').replace(/(var([^)]+))/g,'<span class="c-keyword">$1</span>');}
+  function copyCode(id){const el=document.getElementById(id);if(!el)return;navigator.clipboard.writeText(el.innerText);const btn=el.previousElementSibling;if(btn){btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy',1800);}}
+  window.copyCode=copyCode;
+  return `
+    <div class="spec-card"><div class="spec-card-head"><div class="spec-card-title">Token Map — All ${COMP.anatomy.length} Parts</div><div class="spec-card-sub">Design tokens mapped to SwiftUI modifiers</div></div><div class="spec-card-body"><div class="code-block-wrap"><button class="copy-btn" onclick="copyCode('tm-code')">Copy</button><div class="code-block" id="tm-code">${hl(tokenMap,'comment')}</div></div></div></div>
+    <div class="spec-card"><div class="spec-card-head"><div class="spec-card-title">SwiftUI — ${n} View</div><div class="spec-card-sub">Production-ready implementation</div></div><div class="spec-card-body"><div class="code-block-wrap"><button class="copy-btn" onclick="copyCode('sw-code')">Copy</button><div class="code-block" id="sw-code">${hl(swift,'swift')}</div></div></div></div>
+    <div class="spec-card"><div class="spec-card-head"><div class="spec-card-title">CSS Output</div><div class="spec-card-sub">Web token variables</div></div><div class="spec-card-body"><div class="code-block-wrap"><button class="copy-btn" onclick="copyCode('css-code')">Copy</button><div class="code-block" id="css-code">${hl(css,'css')}</div></div></div></div>`;
+}
+let _zone=null,_locked=null,_atr=null;
+function copyToken(){if(!_zone)return;navigator.clipboard.writeText('var('+_zone.cssVar+', '+_zone.value+')');const b=document.querySelector('.tc-copy');b.textContent='copied!';setTimeout(()=>b.textContent='copy var()',1600);}
+window.copyToken=copyToken;
+function initInspector(){
+  const canvas=document.getElementById('meas-canvas');if(!canvas||!COMP.spacingZones?.length)return;
+  const ctx=canvas.getContext('2d');const root=document.getElementById('insp-root');
+  function sz(){const r=root.getBoundingClientRect();canvas.width=r.width;canvas.height=r.height;canvas.style.width=r.width+'px';canvas.style.height=r.height+'px';}
+  function rel(r){const rr=root.getBoundingClientRect();return{x:r.left-rr.left,y:r.top-rr.top,w:r.width,h:r.height,right:r.right-rr.left,bottom:r.bottom-rr.top};}
+  function line(x1,y1,x2,y2,c){ctx.beginPath();ctx.strokeStyle=c;ctx.lineWidth=1;ctx.moveTo(Math.round(x1)+.5,Math.round(y1)+.5);ctx.lineTo(Math.round(x2)+.5,Math.round(y2)+.5);ctx.stroke();}
+  function cap(x1,y1,x2,y2,c){const h=Math.abs(y2-y1)<1;ctx.beginPath();ctx.strokeStyle=c;ctx.lineWidth=1;if(h){ctx.moveTo(Math.round(x1)+.5,y1-4);ctx.lineTo(Math.round(x1)+.5,y1+4);ctx.moveTo(Math.round(x2)+.5,y2-4);ctx.lineTo(Math.round(x2)+.5,y2+4);}else{ctx.moveTo(x1-4,Math.round(y1)+.5);ctx.lineTo(x1+4,Math.round(y1)+.5);ctx.moveTo(x2-4,Math.round(y2)+.5);ctx.lineTo(x2+4,Math.round(y2)+.5);}ctx.stroke();}
+  function lbl(txt,cx,cy,c){const pad=4;ctx.font='bold 10px "DM Mono",monospace';const tw=ctx.measureText(txt).width;const bw=tw+pad*2,bh=16,bx=cx-bw/2,by=cy-bh/2;ctx.fillStyle=c;ctx.beginPath();ctx.roundRect?ctx.roundRect(bx,by,bw,bh,3):ctx.rect(bx,by,bw,bh);ctx.fill();ctx.fillStyle='#fff';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(txt,cx,cy+0.5);}
+  function fill(x,y,w,h,c,a){ctx.save();ctx.globalAlpha=a;ctx.fillStyle=c;ctx.fillRect(x,y,w,h);ctx.restore();}
+  function drawZone(zone){sz();ctx.clearRect(0,0,canvas.width,canvas.height);const el=document.getElementById('comp-'+zone.targetSuffix);if(!el)return;const r=rel(el.getBoundingClientRect());const c=zone.color;if(zone.draw==='padding'){const p=zone.padding;fill(r.x,r.y,r.w,p.top,c,0.18);fill(r.x,r.bottom-p.bottom,r.w,p.bottom,c,0.18);fill(r.x,r.y+p.top,p.left,r.h-p.top-p.bottom,c,0.18);fill(r.right-p.right,r.y+p.top,p.right,r.h-p.top-p.bottom,c,0.18);const cx=r.x+r.w/2;line(cx,r.y,cx,r.y+p.top,c);cap(cx,r.y,cx,r.y+p.top,c);lbl(p.top+'px',cx+28,r.y+p.top/2,c);line(cx,r.bottom-p.bottom,cx,r.bottom,c);cap(cx,r.bottom-p.bottom,cx,r.bottom,c);lbl(p.bottom+'px',cx+28,r.bottom-p.bottom/2,c);const my=r.y+r.h/2;line(r.x,my,r.x+p.left,my,c);cap(r.x,my,r.x+p.left,my,c);lbl(p.left+'px',r.x+p.left/2,my-14,c);line(r.right-p.right,my,r.right,my,c);cap(r.right-p.right,my,r.right,my,c);lbl(p.right+'px',r.right-p.right/2,my-14,c);}else if(zone.draw==='gap-v'){const children=[...el.children].filter(c=>c.offsetHeight>0);const rr=root.getBoundingClientRect();for(let i=0;i<children.length-1;i++){const a=children[i].getBoundingClientRect(),b=children[i+1].getBoundingClientRect();const y1=a.bottom-rr.top,y2=b.top-rr.top,gh=y2-y1;if(gh<=0)continue;fill(r.x,y1,r.w,gh,c,0.22);line(r.x,y1,r.right,y1,c);line(r.x,y2,r.right,y2,c);lbl(Math.round(gh)+'px',r.x+r.w/2,y1+gh/2,c);}}else if(zone.draw==='radius'){const rad=zone.radius;ctx.strokeStyle=c;ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(r.x+rad,r.y+rad,rad,Math.PI,Math.PI*1.5);ctx.stroke();ctx.beginPath();ctx.arc(r.right-rad,r.y+rad,rad,Math.PI*1.5,0);ctx.stroke();lbl('r '+rad+'px',r.x+rad+20,r.y+rad/2+4,c);}}
+  function hexA(h,a){const rv=parseInt(h.slice(1,3),16),g=parseInt(h.slice(3,5),16),b=parseInt(h.slice(5,7),16);return 'rgba('+rv+','+g+','+b+','+a+')';}
+  function setCard(z){const c=z?z.color:null;document.getElementById('tc-dot').style.background=c||'var(--border)';document.getElementById('tc-label').textContent=z?z.label:'Hover an element';const tok=document.getElementById('tc-token');tok.textContent=z?z.token:'—';tok.style.color=c||'var(--blue)';tok.style.background=c?hexA(c,0.1):'#eff6ff';document.getElementById('tc-value').textContent=z?z.value:'—';document.getElementById('tc-value').style.color=c||'var(--ink)';document.getElementById('tc-cssvar').textContent=z?'var('+z.cssVar+', '+z.value+')':'—';_zone=z;}
+  function setRow(id){if(_atr)document.getElementById(_atr)?.classList.remove('lit');if(id){document.getElementById(id)?.classList.add('lit');_atr=id;}else _atr=null;}
+  function clear(){COMP.spacingZones.forEach(z=>{const e=document.getElementById('comp-'+z.targetSuffix);if(e)e.style.outline='2px solid transparent';});ctx.clearRect(0,0,canvas.width,canvas.height);setCard(null);setRow(null);}
+  COMP.spacingZones.forEach(zone=>{const el=document.getElementById('comp-'+zone.targetSuffix);if(!el)return;el.style.cursor='crosshair';el.style.outline='2px solid transparent';el.style.outlineOffset='1px';el.style.transition='outline 0.1s';el.addEventListener('mouseenter',()=>{if(_locked)return;COMP.spacingZones.forEach(z=>{const e=document.getElementById('comp-'+z.targetSuffix);if(e)e.style.outline='2px solid transparent';});el.style.outline='2px solid '+zone.color;drawZone(zone);setCard(zone);setRow(zone.tableId);});el.addEventListener('mouseleave',e=>{if(_locked)return;if(el.contains(e.relatedTarget))return;el.style.outline='2px solid transparent';ctx.clearRect(0,0,canvas.width,canvas.height);setCard(null);setRow(null);});el.addEventListener('click',e=>{e.stopPropagation();if(_locked===zone){_locked=null;clear();}else{COMP.spacingZones.forEach(z=>{const ev=document.getElementById('comp-'+z.targetSuffix);if(ev)ev.style.outline='2px solid transparent';});el.style.outline='2px solid '+zone.color;drawZone(zone);setCard(zone);setRow(zone.tableId);_locked=zone;document.getElementById('tc-head').style.borderBottom='2px solid '+zone.color;}});});
+  document.getElementById('insp-root')?.addEventListener('click',e=>{if(!e.target.closest('[id^="comp-"]')){_locked=null;clear();document.getElementById('tc-head').style.borderBottom='';}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&_locked){_locked=null;clear();document.getElementById('tc-head').style.borderBottom='';}});
+  sz();window.addEventListener('resize',()=>{sz();if(_zone)drawZone(_zone);});
+}
+function positionAnatomy(){
+  const root=document.getElementById('anatomy-root');if(!root)return;
+  const svg=document.getElementById('ann-svg');if(!svg)return;
+  const rootR=root.getBoundingClientRect();svg.innerHTML='';svg.setAttribute('width',rootR.width);svg.setAttribute('height',rootR.height);
+  const DOT=18,GAP=14;
+  COMP.anatomy.forEach(({id,targetSuffix,anchorY})=>{
+    const el=document.getElementById('anat-'+targetSuffix);const dotEl=document.getElementById('ann-'+id);if(!el||!dotEl)return;
+    const r=el.getBoundingClientRect();const ex=r.right-rootR.left;
+    const ey=anchorY==='top'?r.top-rootR.top:anchorY==='bottom'?r.bottom-rootR.top:(r.top+r.bottom)/2-rootR.top;
+    const dx=ex+GAP+DOT/2,dy=ey;
+    dotEl.style.left=(dx-DOT/2)+'px';dotEl.style.top=(dy-DOT/2)+'px';dotEl.style.opacity='1';
+    const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1',ex);line.setAttribute('y1',ey);line.setAttribute('x2',dx-DOT/2);line.setAttribute('y2',dy);
+    line.setAttribute('stroke','#ccc');line.setAttribute('stroke-width','1');line.setAttribute('stroke-dasharray','3 2');
     svg.appendChild(line);
   });
 }
-
-// ─── SPACING INSPECTOR ───────────────────────────────────────────────────────
-function initSpacingInspector(comp) {
-  const canvas = document.getElementById('meas-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const root = document.getElementById('insp-root');
-  let currentZone = null, lockedZone = null, activeTr = null;
-
-  const zones = comp.spacingZones;
-
-  function sizeCanvas() {
-    const r = root.getBoundingClientRect();
-    canvas.width = r.width; canvas.height = r.height;
-    canvas.style.width = r.width + 'px'; canvas.style.height = r.height + 'px';
-  }
-
-  function rel(elRect) {
-    const rr = root.getBoundingClientRect();
-    return { x: elRect.left-rr.left, y: elRect.top-rr.top, w: elRect.width, h: elRect.height, right: elRect.right-rr.left, bottom: elRect.bottom-rr.top };
-  }
-
-  function drawLine(x1,y1,x2,y2,c) { ctx.beginPath(); ctx.strokeStyle=c; ctx.lineWidth=1; ctx.setLineDash([]); ctx.moveTo(Math.round(x1)+.5,Math.round(y1)+.5); ctx.lineTo(Math.round(x2)+.5,Math.round(y2)+.5); ctx.stroke(); }
-  function drawCap(x1,y1,x2,y2,c) { const isH=Math.abs(y2-y1)<1; ctx.beginPath(); ctx.strokeStyle=c; ctx.lineWidth=1; if(isH){ctx.moveTo(Math.round(x1)+.5,y1-4);ctx.lineTo(Math.round(x1)+.5,y1+4);ctx.moveTo(Math.round(x2)+.5,y2-4);ctx.lineTo(Math.round(x2)+.5,y2+4);}else{ctx.moveTo(x1-4,Math.round(y1)+.5);ctx.lineTo(x1+4,Math.round(y1)+.5);ctx.moveTo(x2-4,Math.round(y2)+.5);ctx.lineTo(x2+4,Math.round(y2)+.5);}ctx.stroke(); }
-  function drawLabel(text,cx,cy,c) { const pad=4; ctx.font='bold 10px "DM Mono",monospace'; const tw=ctx.measureText(text).width; const bw=tw+pad*2,bh=16,bx=cx-bw/2,by=cy-bh/2; ctx.fillStyle=c; ctx.beginPath(); ctx.roundRect(bx,by,bw,bh,3); ctx.fill(); ctx.fillStyle='#fff'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(text,cx,cy+0.5); }
-  function fillRect(x,y,w,h,c,a) { ctx.save(); ctx.globalAlpha=a; ctx.fillStyle=c; ctx.fillRect(x,y,w,h); ctx.restore(); }
-
-  function drawPadding(zone, r) {
-    const c=zone.color, p=zone.padding;
-    fillRect(r.x,r.y,r.w,p.top,c,0.18); fillRect(r.x,r.bottom-p.bottom,r.w,p.bottom,c,0.18);
-    fillRect(r.x,r.y+p.top,p.left,r.h-p.top-p.bottom,c,0.18); fillRect(r.right-p.right,r.y+p.top,p.right,r.h-p.top-p.bottom,c,0.18);
-    const cx=r.x+r.w/2;
-    drawLine(cx,r.y,cx,r.y+p.top,c); drawCap(cx,r.y,cx,r.y+p.top,c); drawLabel(p.top+'px',cx+28,r.y+p.top/2,c);
-    drawLine(cx,r.bottom-p.bottom,cx,r.bottom,c); drawCap(cx,r.bottom-p.bottom,cx,r.bottom,c); drawLabel(p.bottom+'px',cx+28,r.bottom-p.bottom/2,c);
-    const my=r.y+r.h/2;
-    drawLine(r.x,my,r.x+p.left,my,c); drawCap(r.x,my,r.x+p.left,my,c); drawLabel(p.left+'px',r.x+p.left/2,my-14,c);
-    drawLine(r.right-p.right,my,r.right,my,c); drawCap(r.right-p.right,my,r.right,my,c); drawLabel(p.right+'px',r.right-p.right/2,my-14,c);
-  }
-
-  function drawGapV(zone, r) {
-    const el=document.getElementById('comp-'+zone.targetSuffix);
-    if (!el) return;
-    const children=Array.from(el.children).filter(c=>c.offsetHeight>0);
-    const rr=root.getBoundingClientRect(), c=zone.color;
-    for(let i=0;i<children.length-1;i++){
-      const a=children[i].getBoundingClientRect(), b=children[i+1].getBoundingClientRect();
-      const y1=a.bottom-rr.top, y2=b.top-rr.top, gh=y2-y1;
-      if(gh<=0) continue;
-      fillRect(r.x,y1,r.w,gh,c,0.22);
-      drawLine(r.x,y1,r.right,y1,c); drawLine(r.x,y2,r.right,y2,c);
-      drawLabel(Math.round(gh)+'px',r.x+r.w/2,y1+gh/2,c);
-    }
-  }
-
-  function drawRadius(zone, r) {
-    const rad=zone.radius, c=zone.color;
-    ctx.strokeStyle=c; ctx.lineWidth=1.5; ctx.setLineDash([]);
-    ctx.beginPath(); ctx.arc(r.x+rad,r.y+rad,rad,Math.PI,Math.PI*1.5); ctx.stroke();
-    ctx.beginPath(); ctx.arc(r.right-rad,r.y+rad,rad,Math.PI*1.5,0); ctx.stroke();
-    drawLabel('r '+rad+'px',r.x+rad+20,r.y+rad/2+4,c);
-  }
-
-  function renderZone(zone) {
-    sizeCanvas(); ctx.clearRect(0,0,canvas.width,canvas.height);
-    if(!zone) return;
-    const el=document.getElementById('comp-'+zone.targetSuffix);
-    if (!el) return;
-    const r=rel(el.getBoundingClientRect());
-    if(zone.draw==='padding') drawPadding(zone,r);
-    else if(zone.draw==='gap-v') drawGapV(zone,r);
-    else if(zone.draw==='radius') drawRadius(zone,r);
-  }
-
-  function setTableRow(id) {
-    if(activeTr) document.getElementById(activeTr)?.classList.remove('tr-lit');
-    if(id){document.getElementById(id)?.classList.add('tr-lit');activeTr=id;}
-    else activeTr=null;
-  }
-
-  function hexAlpha(hex,a){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return `rgba(${r},${g},${b},${a})`;}
-
-  function updateCard(zone) {
-    const c=zone?zone.color:null;
-    document.getElementById('tc-dot').style.background=c||'var(--border)';
-    document.getElementById('tc-label').textContent=zone?zone.label:'Hover an element';
-    const tok=document.getElementById('tc-token'); tok.textContent=zone?zone.token:'—'; tok.style.color=c||'var(--accent)'; tok.style.background=c?hexAlpha(c,0.1):'var(--accent-bg)';
-    document.getElementById('tc-value').textContent=zone?zone.value:'—'; document.getElementById('tc-value').style.color=c||'var(--text-primary)';
-    document.getElementById('tc-cssvar').textContent=zone?`var(${zone.cssVar}, ${zone.value})`:'—';
-    document.getElementById('tc-copy').style.color=c||'var(--accent)';
-    currentZone=zone;
-  }
-
-  function lockZone(zone) {
-    lockedZone=zone;
-    const hdr=document.getElementById('tc-header');
-    if(zone){hdr.style.borderBottom=`2px solid ${zone.color}`;document.getElementById('tc-label').textContent='⌥ '+zone.label+' — locked';}
-    else hdr.style.borderBottom='';
-  }
-
-  function clearAll() {
-    zones.forEach(z=>{const e=document.getElementById('comp-'+z.targetSuffix);if(e){e.classList.remove('insp-active');e.style.outline='2px solid transparent';}});
-    ctx.clearRect(0,0,canvas.width,canvas.height); updateCard(null); setTableRow(null);
-  }
-
-  window.copyCurrentToken = function() {
-    if(!currentZone) return;
-    navigator.clipboard.writeText(`var(${currentZone.cssVar}, ${currentZone.value})`);
-    const btn=document.getElementById('tc-copy'); btn.textContent='copied!'; setTimeout(()=>btn.textContent='copy var()',1600);
-  };
-
-  zones.forEach(zone => {
-    const el=document.getElementById('comp-'+zone.targetSuffix);
-    if(!el) return;
-    el.style.cursor='crosshair'; el.style.transition='outline 0.1s ease'; el.style.outline='2px solid transparent'; el.style.outlineOffset='1px';
-
-    el.addEventListener('mouseenter',()=>{
-      if(lockedZone) return;
-      zones.forEach(z=>document.getElementById('comp-'+z.targetSuffix)?.classList.remove('insp-active'));
-      el.classList.add('insp-active'); renderZone(zone); updateCard(zone); setTableRow(zone.tableId);
-    });
-    el.addEventListener('mouseleave',(e)=>{
-      if(lockedZone) return;
-      if(el.contains(e.relatedTarget)) return;
-      el.classList.remove('insp-active'); ctx.clearRect(0,0,canvas.width,canvas.height); updateCard(null); setTableRow(null);
-    });
-    el.addEventListener('click',(e)=>{
-      e.stopPropagation();
-      if(lockedZone===zone){lockZone(null);clearAll();}
-      else{zones.forEach(z=>document.getElementById('comp-'+z.targetSuffix)?.classList.remove('insp-active'));el.classList.add('insp-active');renderZone(zone);updateCard(zone);setTableRow(zone.tableId);lockZone(zone);}
-    });
-  });
-
-  document.getElementById('insp-root').addEventListener('click',e=>{
-    if(!e.target.closest('[id^="comp-"]')){lockZone(null);clearAll();}
-  });
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&lockedZone){lockZone(null);clearAll();} });
-  sizeCanvas(); window.addEventListener('resize',()=>{sizeCanvas();if(currentZone)renderZone(currentZone);});
-}
-
-// ─── CSS COPY ─────────────────────────────────────────────────────────────────
-window.copyCss = function() {
-  navigator.clipboard.writeText(window._cssOutput || '');
-  const btn=document.getElementById('css-copy-btn'); btn.textContent='Copied!'; setTimeout(()=>btn.textContent='Copy',1800);
-};
-
-// ─── CSS SYNTAX HIGHLIGHT ────────────────────────────────────────────────────
-function syntaxHighlightCss(css) {
-  if (!css) return '';
-  return css
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/(\/\*.*?\*\/)/g,'<span class="c-cmt">$1</span>')
-    .replace(/^(\s*)([\w-]+)\s*\{/gm,'$1<span class="c-sel">$2</span> <span class="c-punc">{</span>')
-    .replace(/\}/g,'<span class="c-punc">}</span>')
-    .replace(/^\s{2}([\w-]+):/gm,(m,prop)=>`  <span class="c-prop">${prop}</span>:`)
-    .replace(/(var\([^)]+\))/g,'<span class="c-tok">$1</span>')
-    .replace(/;/g,'<span class="c-punc">;</span>')
-    .split('\n').map(line => `<span>${line}</span>`).join('\n');
-}
-
 init();
 </script>
 </body>
