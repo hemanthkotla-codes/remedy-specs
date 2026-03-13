@@ -4,397 +4,119 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Remedy DS — Component Library</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  /* Exact from lcaxloblawtools.latecheckout.agency */
-  --paper:      #f5f4f0;   /* page bg */
-  --paper-warm: #eeedea;   /* nav / section divider */
-  --line:       #e4e3df;   /* borders */
-  --ink:        #111110;   /* primary text */
-  --ink-mid:    #6b6a65;   /* secondary text */
-  --ink-faint:  #9b9a95;   /* muted / meta */
-  --surface:    #ffffff;   /* card bg */
-  --ink-inv:    #faf9f5;   /* text on dark */
-
-  /* Remedy token colors — for category badges */
-  --c-nav:      #d1fae5;  /* green — Navigation */
-  --c-nav-t:    #065f46;
-  --c-data:     #dbeafe;  /* blue — Data */
-  --c-data-t:   #1e40af;
-  --c-form:     #ede9fe;  /* purple — Form */
-  --c-form-t:   #5b21b6;
-  --c-feed:     #fee2e2;  /* red — Feedback */
-  --c-feed-t:   #991b1b;
-  --c-lay:      #fef3c7;  /* amber — Layout */
-  --c-lay-t:    #92400e;
-  --c-other:    #e4e3df;
-  --c-other-t:  #6b6a65;
-  --c-over:     #f3e8ff;  /* Overlay */
-  --c-over-t:   #6b21a8;
-
-  --mono: 'DM Mono', monospace;
-  --sans: 'DM Sans', sans-serif;
-  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-full: 999px;
+  --bg:         #efeeea;
+  --thumb-bg:   #f5f4f0;
+  --surface:    #ffffff;
+  --border:     #e0deda;
+  --border-2:   #d8d7d3;
+  --ink:        #1a1917;
+  --ink-mid:    #66645f;
+  --ink-faint:  #9a9893;
+  --ink-inv:    #ffffff;
+  --btn-bg:     #1a1917;
+  --btn-hover:  #2e2d2a;
+  --cat-data-bg:#dbeafe; --cat-data-t:   #1e40af;
+  --cat-nav-bg: #d1fae5; --cat-nav-t:    #065f46;
+  --cat-lay-bg: #fef3c7; --cat-lay-t:    #92400e;
+  --cat-form-bg:#ede9fe; --cat-form-t:   #5b21b6;
+  --cat-feed-bg:#fee2e2; --cat-feed-t:   #991b1b;
+  --cat-other-bg:#f3f4f6;--cat-other-t:  #374151;
+  --cat-over-bg:#ede9fe; --cat-over-t:   #5b21b6;
+  --mono:'DM Mono',monospace;
+  --sans:'DM Sans',sans-serif;
 }
-
-html { scroll-behavior: smooth; }
-body { font-family: var(--sans); background: var(--paper); color: var(--ink); min-height: 100vh; -webkit-font-smoothing: antialiased; }
-
-/* ─── NAV ─── */
-nav {
-  background: var(--paper-warm);
-  border-bottom: 1px solid var(--line);
-  padding: 0 40px;
-  display: flex; align-items: center; justify-content: space-between;
-  height: 48px;
-  position: sticky; top: 0; z-index: 100;
-}
-.nav-left { display: flex; align-items: center; gap: 16px; }
-.nav-logo {
-  font-family: var(--mono); font-size: 13px; font-weight: 500;
-  color: var(--ink); text-decoration: none; letter-spacing: -0.01em;
-}
-.nav-sep { width: 1px; height: 14px; background: var(--line); }
-.nav-title { font-size: 13px; color: var(--ink-mid); }
-.nav-status { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
-.nav-status-dot { width: 6px; height: 6px; border-radius: 50%; background: #4caf50; }
-
-/* ─── HERO ─── */
-.hero {
-  max-width: 1080px; margin: 0 auto;
-  padding: 56px 40px 40px;
-}
-.hero-eyebrow { font-family: var(--mono); font-size: 11px; color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px; }
-.hero h1 {
-  font-size: 42px; font-weight: 700; letter-spacing: -0.03em;
-  line-height: 1.05; color: var(--ink); margin-bottom: 12px;
-}
-.hero h1 em { font-style: italic; font-weight: 300; }
-.hero-sub { font-size: 14px; color: var(--ink-mid); line-height: 1.7; max-width: 480px; margin-bottom: 32px; }
-
-/* ─── TOOLBAR ─── */
-.toolbar {
-  max-width: 1080px; margin: 0 auto;
-  padding: 0 40px 32px;
-  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-}
-.toolbar-label { font-family: var(--mono); font-size: 11px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; }
-.search-wrap { position: relative; }
-.search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--ink-faint); pointer-events: none; }
-.search-input {
-  font-family: var(--sans); font-size: 13px; color: var(--ink);
-  background: var(--surface); border: 1px solid var(--line);
-  border-radius: var(--r-full); padding: 8px 16px 8px 34px;
-  width: 240px; outline: none; transition: border-color 0.15s;
-}
-.search-input:focus { border-color: var(--ink); }
-.search-input::placeholder { color: var(--ink-faint); }
-.t-sep { width: 1px; height: 16px; background: var(--line); flex-shrink: 0; }
-.fpill {
-  font-family: var(--sans); font-size: 12px; font-weight: 500;
-  padding: 5px 14px; border-radius: var(--r-full);
-  border: 1px solid var(--line); background: var(--surface);
-  color: var(--ink-mid); cursor: pointer; transition: all 0.12s;
-  white-space: nowrap;
-}
-.fpill.active { background: var(--ink); color: var(--ink-inv); border-color: var(--ink); }
-.fpill:hover:not(.active) { border-color: var(--ink-mid); background: var(--paper-warm); }
-
-/* ─── DIVIDER ─── */
-.section-divider {
-  max-width: 1080px; margin: 0 auto;
-  padding: 0 40px 20px;
-  display: flex; align-items: center; gap: 12px;
-}
-.divider-label { font-family: var(--mono); font-size: 10px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.1em; white-space: nowrap; }
-.divider-count { font-family: var(--mono); font-size: 10px; color: var(--ink-faint); }
-.divider-line { flex: 1; height: 1px; background: var(--line); }
-
-/* ─── GRID ─── */
-.grid-wrap { max-width: 1080px; margin: 0 auto; padding: 0 40px 80px; }
-.comp-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px; margin-bottom: 40px;
-}
-
-/* ─── CARD — exact Tool Directory style ─── */
-.comp-card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--r-md);
-  overflow: hidden;
-  text-decoration: none; color: inherit;
-  display: flex; flex-direction: column;
-  transition: box-shadow 0.2s, transform 0.2s;
-  cursor: pointer;
-}
-.comp-card:hover {
-  box-shadow: 0 4px 24px rgba(17,17,16,0.10);
-  transform: translateY(-2px);
-}
-
-/* Preview area */
-.card-preview {
-  background: var(--paper);
-  border-bottom: 1px solid var(--line);
-  height: 180px;
-  display: flex; align-items: center; justify-content: center;
-  position: relative; overflow: hidden;
-  background-image: radial-gradient(circle, rgba(17,17,16,0.06) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-.card-preview-inner { transform-origin: center; pointer-events: none; user-select: none; }
-
-/* Card meta row */
-.card-meta {
-  padding: 16px 16px 0;
-  display: flex; align-items: flex-start; justify-content: space-between;
-  margin-bottom: 12px;
-}
-.card-icon {
-  width: 32px; height: 32px; border-radius: 8px;
-  background: var(--paper-warm); border: 1px solid var(--line);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--ink-mid); flex-shrink: 0;
-}
-.card-cat-badge {
-  font-family: var(--mono); font-size: 9px; font-weight: 500;
-  text-transform: uppercase; letter-spacing: 0.08em;
-  padding: 3px 8px; border-radius: var(--r-full);
-}
-
-/* Category colours */
-.cat-overlay  { background: var(--c-over); color: var(--c-over-t); }
-.cat-navigation { background: var(--c-nav); color: var(--c-nav-t); }
-.cat-data     { background: var(--c-data); color: var(--c-data-t); }
-.cat-form     { background: var(--c-form); color: var(--c-form-t); }
-.cat-feedback { background: var(--c-feed); color: var(--c-feed-t); }
-.cat-layout   { background: var(--c-lay); color: var(--c-lay-t); }
-.cat-other    { background: var(--c-other); color: var(--c-other-t); }
-
-/* Card body */
-.card-body { padding: 0 16px 16px; flex: 1; display: flex; flex-direction: column; }
-.card-name { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 6px; letter-spacing: -0.01em; }
-.card-variant-tag {
-  display: inline-block; font-family: var(--mono); font-size: 9px;
-  font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
-  color: var(--ink-mid); background: var(--paper-warm);
-  padding: 2px 6px; border-radius: 4px; margin-left: 6px;
-  vertical-align: middle;
-}
-.card-desc { font-size: 12px; color: var(--ink-mid); line-height: 1.6; flex: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
-/* Card footer */
-.card-footer {
-  padding: 12px 16px 16px;
-  border-top: 1px solid var(--line);
-  margin-top: 12px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.card-parts { font-family: var(--mono); font-size: 10px; color: var(--ink-faint); }
-.card-cta {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 28px; height: 28px; border-radius: 50%;
-  background: var(--ink); color: var(--ink-inv);
-  text-decoration: none; transition: opacity 0.15s;
-  flex-shrink: 0; font-size: 12px;
-}
-.card-cta:hover { opacity: 0.75; }
-
-/* Status badge */
-.card-status { display: flex; align-items: center; gap: 4px; font-family: var(--mono); font-size: 10px; color: var(--ink-faint); }
-.status-dot { width: 5px; height: 5px; border-radius: 50%; background: #4caf50; }
-.status-dot.draft { background: var(--ink-faint); }
-
-/* Stats row in hero */
-.hero-stats {
-  display: flex; align-items: center; gap: 24px;
-  opacity: 0; transition: opacity 0.4s;
-}
-.hero-stats.show { opacity: 1; }
-.stat { display: flex; flex-direction: column; gap: 1px; }
-.stat-n { font-family: var(--mono); font-size: 22px; font-weight: 500; letter-spacing: -0.03em; color: var(--ink); line-height: 1; }
-.stat-l { font-family: var(--mono); font-size: 10px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.08em; }
-.stat-sep { width: 1px; height: 24px; background: var(--line); }
-
-/* Footer */
-footer { border-top: 1px solid var(--line); padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; }
-footer span { font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
-
-/* Empty */
-.empty { grid-column: 1/-1; text-align: center; padding: 80px 40px; color: var(--ink-faint); }
-.empty p { font-size: 13px; margin-top: 8px; font-family: var(--mono); }
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;}
+header{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;}
+.header-inner{max-width:1152px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;gap:16px;}
+.lca-logo{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--ink);text-decoration:none;letter-spacing:-0.02em;font-style:italic;}
+.header-divider{width:1px;height:20px;background:var(--border-2);margin:0 4px;flex-shrink:0;}
+.header-title{font-size:13px;font-weight:500;color:var(--ink);}
+.header-sub{font-size:11px;color:var(--ink-faint);margin-top:1px;}
+main{max-width:1152px;margin:0 auto;padding:32px 24px;}
+.filters{display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap;}
+.search-wrap{position:relative;flex:1;min-width:200px;}
+.search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink-faint);pointer-events:none;}
+.search-input{width:100%;padding:8px 12px 8px 32px;font-size:13px;font-family:var(--sans);color:var(--ink);background:var(--surface);border:1px solid var(--border);border-radius:8px;outline:none;transition:box-shadow 0.15s;}
+.search-input:focus{box-shadow:0 0 0 2px rgba(26,25,23,0.15);border-color:rgba(26,25,23,0.3);}
+.search-input::placeholder{color:#b0aea9;}
+.cat-tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:4px;}
+.cat-tab{padding:4px 12px;border-radius:99px;font-size:11px;font-weight:500;color:var(--ink-mid);cursor:pointer;transition:all 0.12s;border:none;background:transparent;text-transform:capitalize;}
+.cat-tab.active{background:var(--btn-bg);color:var(--ink-inv);box-shadow:0 1px 3px rgba(0,0,0,0.2);}
+.cat-tab:hover:not(.active){color:var(--ink);}
+.comp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
+.comp-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:box-shadow 0.15s;cursor:pointer;}
+.comp-card:hover{box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.card-thumb{position:relative;height:144px;background:var(--thumb-bg);display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--border);}
+.card-parts{position:absolute;bottom:8px;left:8px;font-size:10px;color:var(--ink-faint);font-family:var(--mono);}
+.card-info{padding:16px;flex:1;display:flex;flex-direction:column;gap:10px;}
+.card-title-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
+.card-name{font-size:14px;font-weight:600;line-height:1.3;color:var(--ink);}
+.card-cat{font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:2px 6px;border-radius:4px;}
+.cat-data{background:var(--cat-data-bg);color:var(--cat-data-t);}
+.cat-navigation{background:var(--cat-nav-bg);color:var(--cat-nav-t);}
+.cat-layout{background:var(--cat-lay-bg);color:var(--cat-lay-t);}
+.cat-form{background:var(--cat-form-bg);color:var(--cat-form-t);}
+.cat-feedback{background:var(--cat-feed-bg);color:var(--cat-feed-t);}
+.cat-other{background:var(--cat-other-bg);color:var(--cat-other-t);}
+.cat-overlay{background:var(--cat-over-bg);color:var(--cat-over-t);}
+.card-desc{font-size:12px;font-weight:400;line-height:1.5;color:var(--ink-mid);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.card-footer{margin-top:auto;}
+.card-actions{display:flex;align-items:center;gap:8px;}
+.card-view-btn{margin-left:auto;font-size:12px;font-weight:500;background:var(--btn-bg);color:var(--ink-inv);padding:6px 12px;border-radius:8px;border:none;cursor:pointer;transition:background 0.12s;text-decoration:none;display:inline-block;}
+.card-view-btn:hover{background:var(--btn-hover);}
+.layer-thumb{display:inline-flex;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e4e6f0;}
+.layer-chip{display:flex;align-items:center;justify-content:center;padding:8px 10px;}
+.layer-badge{font-size:9px;font-weight:700;padding:2px 4px;border-radius:3px;border:1px solid;white-space:nowrap;}
+.dlg-thumb{width:200px;background:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e0deda;}
+.dlg-content{padding:8px 10px;}
+.dlg-title{font-size:9px;font-weight:600;line-height:12px;color:#1a1f3c;margin:0 0 2px;}
+.dlg-body{font-size:7px;font-weight:400;line-height:9px;color:#565c79;margin:0 0 6px;}
+.dlg-btn-primary{background:#1a1f3c;border-radius:10px;padding:4px 8px;margin-bottom:3px;text-align:center;}
+.dlg-btn-primary p{font-size:7px;font-weight:600;color:#ffffff;margin:0;}
+.dlg-btn-ghost{padding:3px 8px;text-align:center;}
+.dlg-btn-ghost p{font-size:7px;font-weight:600;color:#1a1f3c;margin:0;}
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:96px 40px;gap:12px;text-align:center;}
+.empty-title{font-size:15px;font-weight:600;color:var(--ink);}
+.empty-sub{font-size:13px;color:var(--ink-faint);}
 </style>
 </head>
 <body>
-
-<nav>
-  <div class="nav-left">
-    <a class="nav-logo" href="index.html">LCA</a>
-    <div class="nav-sep"></div>
-    <span class="nav-title">Remedy DS</span>
+<header>
+  <div class="header-inner">
+    <a class="lca-logo" href="index.html">LCA</a>
+    <div class="header-divider"></div>
+    <div>
+      <div class="header-title">Handoff</div>
+      <div class="header-sub" id="header-sub">Loading…</div>
+    </div>
   </div>
-  <div class="nav-status">
-    <span class="nav-status-dot"></span>
-    <span id="token-label">Loading…</span>
+</header>
+<main>
+  <div class="filters">
+    <div class="search-wrap">
+      <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 10l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <input class="search-input" id="search" type="text" placeholder="Search components…" oninput="filter()">
+    </div>
+    <div class="cat-tabs" id="cat-tabs"></div>
   </div>
-</nav>
-
-<div class="hero">
-  <div class="hero-eyebrow">LCA × Loblaw Digital</div>
-  <h1>Component <em>Specs.</em></h1>
-  <p class="hero-sub">Every Remedy DS component — anatomy, spacing tokens, colour usage, and production-ready CSS. Click any card to view the spec.</p>
-  <div class="hero-stats" id="hero-stats">
-    <div class="stat"><div class="stat-n" id="stat-total">—</div><div class="stat-l">Components</div></div>
-    <div class="stat-sep"></div>
-    <div class="stat"><div class="stat-n" id="stat-cats">—</div><div class="stat-l">Categories</div></div>
-    <div class="stat-sep"></div>
-    <div class="stat"><div class="stat-n" id="stat-pub">—</div><div class="stat-l">Published</div></div>
-  </div>
-</div>
-
-<div class="toolbar">
-  <span class="toolbar-label">Filter</span>
-  <div class="t-sep"></div>
-  <div id="pills" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
-  <div class="t-sep"></div>
-  <div class="search-wrap">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input class="search-input" id="search" type="text" placeholder="Search components…" oninput="filter()">
-  </div>
-</div>
-
-<div class="grid-wrap">
-  <div id="sections"></div>
-</div>
-
-<footer>
-  <span>Remedy Design System · Loblaw Digital</span>
-  <span id="footer-token">—</span>
-</footer>
-
+  <div id="grid-or-empty"></div>
+</main>
 <script>
-let all = [], activeCat = 'all';
-
-const CAT_ICONS = {
-  svg: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>`
-};
-
-function catClass(cat) {
-  const map = { Navigation: 'cat-navigation', Data: 'cat-data', Form: 'cat-form', Feedback: 'cat-feedback', Layout: 'cat-layout', Overlay: 'cat-overlay' };
-  return map[cat] || 'cat-other';
-}
-
-async function init() {
-  const data = await fetch('data/components.json').then(r => r.json());
-  all = data.components;
-  document.getElementById('token-label').textContent = data._meta.tokenSet;
-  document.getElementById('footer-token').textContent = data._meta.tokenSet;
-  const pub = all.filter(c => c.status === 'published').length;
-  const cats = [...new Set(all.map(c => c.category))].length;
-  document.getElementById('stat-total').textContent = all.length;
-  document.getElementById('stat-cats').textContent = cats;
-  document.getElementById('stat-pub').textContent = pub;
-  setTimeout(() => document.getElementById('hero-stats').classList.add('show'), 80);
-
-  const catList = ['All', ...new Set(all.map(c => c.category))];
-  const pillsEl = document.getElementById('pills');
-  catList.forEach(cat => {
-    const btn = document.createElement('button');
-    btn.className = 'fpill' + (cat === 'All' ? ' active' : '');
-    btn.textContent = cat;
-    btn.onclick = () => {
-      activeCat = cat === 'All' ? 'all' : cat;
-      document.querySelectorAll('.fpill').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      filter();
-    };
-    pillsEl.appendChild(btn);
-  });
-  render(all);
-}
-
-function filter() {
-  const q = document.getElementById('search').value.toLowerCase();
-  const filtered = all.filter(c => {
-    const mc = activeCat === 'all' || c.category === activeCat;
-    const mq = !q || [c.name, c.variant, c.description].some(t => t?.toLowerCase().includes(q));
-    return mc && mq;
-  });
-  render(filtered);
-}
-
-function render(components) {
-  const el = document.getElementById('sections');
-  el.innerHTML = '';
-  if (!components.length) {
-    el.innerHTML = '<div class="comp-grid"><div class="empty"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity:0.3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><p>No components found.</p></div></div>';
-    return;
-  }
-
-  const byCat = {};
-  components.forEach(c => { (byCat[c.category] = byCat[c.category] || []).push(c); });
-
-  Object.entries(byCat).forEach(([cat, comps]) => {
-    const sec = document.createElement('div');
-    const div = document.createElement('div');
-    div.className = 'section-divider';
-    div.innerHTML = `<span class="divider-label">${cat}</span><span class="divider-count">${comps.length}</span><div class="divider-line"></div>`;
-    sec.appendChild(div);
-
-    const grid = document.createElement('div');
-    grid.className = 'comp-grid';
-
-    comps.forEach(comp => {
-      const card = document.createElement('a');
-      card.className = 'comp-card';
-      card.href = `spec.html?id=${comp.id}`;
-      const isPub = comp.status === 'published';
-      const html = comp.devModeHtml ? comp.devModeHtml.replace(/\{\{ID\}\}/g, 'p-' + comp.id) : '';
-
-      card.innerHTML = `
-        <div class="card-preview"><div class="card-preview-inner">${html}</div></div>
-        <div class="card-meta">
-          <div class="card-icon">${CAT_ICONS.svg}</div>
-          <span class="card-cat-badge ${catClass(comp.category)}">${comp.category}</span>
-        </div>
-        <div class="card-body">
-          <div class="card-name">${comp.name}${comp.variant ? `<span class="card-variant-tag">${comp.variant}</span>` : ''}</div>
-          <p class="card-desc">${comp.description || ''}</p>
-        </div>
-        <div class="card-footer">
-          <div class="card-status">
-            <span class="status-dot ${isPub ? '' : 'draft'}"></span>
-            <span>${isPub ? 'Published' : 'Draft'}</span>
-          </div>
-          <span class="card-cta">↗</span>
-        </div>`;
-
-      grid.appendChild(card);
-    });
-
-    sec.appendChild(grid);
-    el.appendChild(sec);
-  });
-
-  requestAnimationFrame(scalePreviews);
-}
-
-function scalePreviews() {
-  document.querySelectorAll('.card-preview-inner').forEach(inner => {
-    if (!inner.firstElementChild) return;
-    const c = inner.closest('.card-preview');
-    inner.style.transform = 'none';
-    const scale = Math.min((c.clientWidth - 40) / inner.scrollWidth, (c.clientHeight - 20) / inner.scrollHeight, 0.5);
-    if (scale > 0) inner.style.transform = `scale(${scale})`;
-  });
-}
-
-window.addEventListener('resize', scalePreviews);
+let all=[],activeCat='all';
+const PALETTES=[{light:'#ede9fe',hex:'#7c3aed',border:'#ddd6fe',bg:'#f5f6fa'},{light:'#dbeafe',hex:'#1d4ed8',border:'#bfdbfe',bg:'#f5f6fa'},{light:'#fef3c7',hex:'#b45309',border:'#fde68a',bg:'#ffffff'},{light:'#d1fae5',hex:'#065f46',border:'#a7f3d0',bg:'#ffffff'},{light:'#fee2e2',hex:'#991b1b',border:'#fecaca',bg:'#ffffff'},{light:'#f3f4f6',hex:'#374151',border:'#e5e7eb',bg:'#ffffff'}];
+function catClass(c){const m={data:'cat-data',navigation:'cat-navigation',layout:'cat-layout',form:'cat-form',feedback:'cat-feedback',overlay:'cat-overlay'};return m[c]||'cat-other';}
+function buildDialogThumb(){return`<div class="dlg-thumb"><div style="width:100%;height:70px;overflow:hidden;position:relative"><svg style="width:100%;height:100%;display:block" viewBox="0 0 200 70" fill="none"><rect width="200" height="70" fill="#c8cbde"/><line x1="0" y1="17" x2="200" y2="17" stroke="#b8bbcc" stroke-width="0.5"/><line x1="0" y1="35" x2="200" y2="35" stroke="#b8bbcc" stroke-width="0.5"/><line x1="0" y1="52" x2="200" y2="52" stroke="#b8bbcc" stroke-width="0.5"/><line x1="50" y1="0" x2="50" y2="70" stroke="#b8bbcc" stroke-width="0.5"/><line x1="100" y1="0" x2="100" y2="70" stroke="#b8bbcc" stroke-width="0.5"/><line x1="150" y1="0" x2="150" y2="70" stroke="#b8bbcc" stroke-width="0.5"/><rect x="80" y="0" width="18" height="70" fill="#d4d7e3"/><rect x="0" y="26" width="200" height="16" fill="#d4d7e3"/><circle cx="95" cy="28" r="6" fill="#CB333B"/><circle cx="95" cy="28" r="3" fill="white"/></svg></div><div class="dlg-content"><p class="dlg-title">Enable Location</p><p class="dlg-body">Turn on location to discover nearby health centers.</p><div class="dlg-btn-primary"><p>Enable location</p></div><div class="dlg-btn-ghost"><p>Not now</p></div></div></div>`;}
+function buildLayerThumb(comp){const layers=comp.anatomy||[];if(!layers.length)return'<div style="color:#9a9893;font-size:11px;font-family:DM Mono,monospace;">No preview</div>';const items=layers.slice(0,5).map((l,i)=>{const p=PALETTES[i%PALETTES.length];const short=l.label?l.label.slice(0,4).toUpperCase():('L'+(i+1));return`<div class="layer-chip" style="background:${p.bg};${i<layers.length-1?'border-right:1px solid #e4e6f0;':''}"><span class="layer-badge" style="background:${p.light};color:${p.hex};border-color:${p.border}">${short}</span></div>`;}).join('');return`<div class="layer-thumb">${items}</div>`;}
+function buildThumb(c){if(c.id==='dialog-location-permission')return buildDialogThumb();return buildLayerThumb(c);}
+async function init(){const data=await fetch('data/components.json').then(r=>r.json());all=data.components;const total=all.length;document.getElementById('header-sub').textContent=`${total} component${total!==1?'s':''} · Remedy DS`;const tabsEl=document.getElementById('cat-tabs');const existingCats=['all',...new Set(all.map(c=>c.category))];existingCats.forEach(cat=>{const btn=document.createElement('button');btn.className='cat-tab'+(cat==='all'?' active':'');btn.textContent=cat;btn.onclick=()=>{activeCat=cat;document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');filter();};tabsEl.appendChild(btn);});render(all);}
+function filter(){const q=document.getElementById('search').value.toLowerCase();const filtered=all.filter(c=>{const mc=activeCat==='all'||c.category===activeCat;const mq=!q||[c.name,c.variant,c.description].some(t=>t?.toLowerCase().includes(q));return mc&&mq;});render(filtered);}
+function render(components){const el=document.getElementById('grid-or-empty');el.innerHTML='';if(!components.length){el.innerHTML='<div class="empty"><p class="empty-title">No components found</p><p class="empty-sub">Try a different search or category filter.</p></div>';return;}const grid=document.createElement('div');grid.className='comp-grid';components.forEach(comp=>{const layers=comp.anatomy||[];const partsCount=layers.length||comp.spacingTable?.length||6;const catCls=catClass(comp.category);const card=document.createElement('div');card.className='comp-card';card.innerHTML=`<div class="card-thumb">${buildThumb(comp)}<span class="card-parts">${partsCount} part${partsCount!==1?'s':''}</span></div><div class="card-info"><div><div class="card-title-row"><span class="card-name">${comp.name}</span>${comp.variant?`<span class="card-cat cat-other" style="background:#e4e3df;color:#565c79">${comp.variant}</span>`:''}<span class="card-cat ${catCls}">${comp.category}</span></div><p class="card-desc">${comp.description||''}</p></div><div class="card-footer"><div class="card-actions"><a class="card-view-btn" href="spec.html?id=${comp.id}">View Spec →</a></div></div></div>`;grid.appendChild(card);});el.appendChild(grid);}
 init();
 </script>
 </body>
