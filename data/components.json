@@ -1,0 +1,167 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "tokenSet": "App Foundations/Mode 1",
+    "lastUpdated": "2026-03-13"
+  },
+  "components": [
+    {
+      "id": "dialog-location-permission",
+      "name": "Dialog",
+      "variant": "Location Permission",
+      "category": "Overlay",
+      "description": "A bottom sheet dialog used to request permissions or confirm actions. Combines an illustrative image slot, a text group, and a stacked button pair.",
+      "status": "published",
+      "figmaFileId": "icvB7zuoFgdjk0aAvYKaHH",
+      "figmaNodeId": "5215-30574",
+      "dimensions": { "width": 358, "height": "auto" },
+
+      "devModeHtml": "<div id=\"{{ID}}-container\" style=\"width:358px; padding:16px; background:white; border-radius:20px; flex-direction:column; justify-content:flex-start; align-items:flex-start; gap:24px; display:inline-flex; box-sizing:border-box; box-shadow:0 4px 24px rgba(26,31,60,0.10);\"><div id=\"{{ID}}-image\" style=\"align-self:stretch; height:227.24px; position:relative; box-shadow:0px 0px 3.23px rgba(0,0,0,0.08); overflow:hidden; border-radius:8px; outline:0.81px #DDDFEB solid; outline-offset:-0.81px; background:linear-gradient(135deg,#C8CBDE 0%,#B8BBCC 100%);\"></div><div id=\"{{ID}}-text-outer\" style=\"align-self:stretch; flex-direction:column; justify-content:flex-start; align-items:flex-start; gap:12px; display:flex;\"><div id=\"{{ID}}-text-group\" style=\"align-self:stretch; flex-direction:column; justify-content:flex-start; align-items:center; gap:4px; display:flex;\"><div style=\"align-self:stretch; justify-content:flex-start; align-items:flex-start; gap:10px; display:inline-flex;\"><div style=\"color:#1A1F3C; font-size:20px; font-family:SF Pro Display,DM Sans,sans-serif; font-weight:600; line-height:24px; letter-spacing:0.38px; word-wrap:break-word\">Enable Location</div></div><div style=\"align-self:stretch; color:#565C79; font-size:13px; font-family:SF Pro Text,DM Sans,sans-serif; font-weight:400; line-height:18px; word-wrap:break-word\">Turn on location to discover nearby health centers and stores. Your location also helps us personalize your experience.</div></div></div><div id=\"{{ID}}-actions\" style=\"align-self:stretch; flex-direction:column; justify-content:center; align-items:flex-start; gap:8px; display:flex;\"><div id=\"{{ID}}-btn-primary\" style=\"align-self:stretch; padding:12px 20px; background:#1A1F3C; overflow:hidden; border-radius:24px; justify-content:center; align-items:center; gap:20px; display:inline-flex;\"><div style=\"color:white; font-size:13px; font-family:SF Pro Text,DM Sans,sans-serif; font-weight:600; line-height:18px;\">Enable location</div></div><div id=\"{{ID}}-btn-tertiary\" style=\"align-self:stretch; padding:12px 20px; background:rgba(0,0,0,0); overflow:hidden; justify-content:center; align-items:center; display:inline-flex;\"><div style=\"color:#1A1F3C; font-size:13px; font-family:SF Pro Text,DM Sans,sans-serif; font-weight:600; line-height:18px;\">Not now</div></div></div></div>",
+
+      "anatomy": [
+        { "id": 1, "targetSuffix": "container",   "anchorX": "right", "anchorY": "top",    "label": "Container",     "sub": "border-radius: Radius/large (20px) · bg: New Neutrals/White" },
+        { "id": 2, "targetSuffix": "image",        "anchorX": "right", "anchorY": "center", "label": "Image slot",    "sub": "border-radius: Radius/small (8px) · h: 227px" },
+        { "id": 3, "targetSuffix": "text-group",   "anchorX": "right", "anchorY": "center", "label": "Text group",    "sub": "gap: Spacing/sp-1 (4px) · content gap: Spacing/sp-3 (12px)" },
+        { "id": 4, "targetSuffix": "btn-primary",  "anchorX": "right", "anchorY": "center", "label": "Primary CTA",   "sub": "data-priority=\"Primary\" · data-size=\"Large\" · radius: Radius/full" },
+        { "id": 5, "targetSuffix": "btn-tertiary", "anchorX": "right", "anchorY": "center", "label": "Tertiary CTA",  "sub": "data-priority=\"Tertiary\" · bg: transparent" }
+      ],
+
+      "spacingZones": [
+        {
+          "targetSuffix": "container",
+          "tableId": "tr-container",
+          "token": "App Foundations/Spacing/sp-4",
+          "cssVar": "--app-foundations-spacing-sp-4",
+          "value": "16px",
+          "label": "Container Padding",
+          "color": "#4D9EFF",
+          "draw": "padding",
+          "padding": { "top": 16, "right": 16, "bottom": 16, "left": 16 }
+        },
+        {
+          "targetSuffix": "image",
+          "tableId": "tr-img-r",
+          "token": "App Foundations/Radius/small",
+          "cssVar": "--app-foundations-radius-small",
+          "value": "8px",
+          "label": "Image Border Radius",
+          "color": "#A855F7",
+          "draw": "radius",
+          "radius": 8
+        },
+        {
+          "targetSuffix": "text-outer",
+          "tableId": "tr-txt-outer-gap",
+          "token": "App Foundations/Spacing/sp-3",
+          "cssVar": "--app-foundations-spacing-sp-3",
+          "value": "12px",
+          "label": "Content Group Gap",
+          "color": "#14B8A6",
+          "draw": "gap-v",
+          "gap": 12
+        },
+        {
+          "targetSuffix": "text-group",
+          "tableId": "tr-txt-gap",
+          "token": "App Foundations/Spacing/sp-1",
+          "cssVar": "--app-foundations-spacing-sp-1",
+          "value": "4px",
+          "label": "Text Gap (Title → Body)",
+          "color": "#F59E0B",
+          "draw": "gap-v",
+          "gap": 4
+        },
+        {
+          "targetSuffix": "actions",
+          "tableId": "tr-act-gap",
+          "token": "App Foundations/Spacing/sp-2",
+          "cssVar": "--app-foundations-spacing-sp-2",
+          "value": "8px",
+          "label": "Actions Gap",
+          "color": "#F0355B",
+          "draw": "gap-v",
+          "gap": 8
+        },
+        {
+          "targetSuffix": "btn-primary",
+          "tableId": "tr-btn-py",
+          "token": "App Foundations/Spacing/sp-3",
+          "cssVar": "--app-foundations-spacing-sp-3",
+          "value": "12px / 20px",
+          "label": "Button Padding (12px top/bottom · 20px left/right)",
+          "color": "#F0355B",
+          "draw": "padding",
+          "padding": { "top": 12, "right": 20, "bottom": 12, "left": 20 }
+        }
+      ],
+
+      "spacingTable": [
+        { "id": "tr-container",    "prop": "padding",        "token": "Spacing/sp-4",    "value": "16px"  },
+        { "id": "tr-gap",          "prop": "gap (container)","token": "Spacing/sp-6",    "value": "24px"  },
+        { "id": "tr-radius-lg",    "prop": "border-radius",  "token": "Radius/large",    "value": "20px"  },
+        { "id": "tr-img-r",        "prop": "img border-r",   "token": "Radius/small",    "value": "8px"   },
+        { "id": "tr-txt-gap",      "prop": "text gap",       "token": "Spacing/sp-1",    "value": "4px"   },
+        { "id": "tr-txt-outer-gap","prop": "content gap",    "token": "Spacing/sp-3",    "value": "12px"  },
+        { "id": "tr-act-gap",      "prop": "actions gap",    "token": "Spacing/sp-2",    "value": "8px"   },
+        { "id": "tr-btn-py",       "prop": "btn padding-y",  "token": "Spacing/sp-3",    "value": "12px"  },
+        { "id": "tr-btn-px",       "prop": "btn padding-x",  "token": "Spacing/sp-5",    "value": "20px"  },
+        { "id": "tr-btn-r",        "prop": "btn border-r",   "token": "Radius/full",     "value": "24px"  }
+      ],
+
+      "colors": [
+        {
+          "group": "Surface & Text",
+          "items": [
+            { "hex": "#FFFFFF", "border": true, "name": "Card background",    "token": "New Neutrals/White",        "usage": "container"         },
+            { "hex": "#1A1F3C",                 "name": "Title & CTA text",   "token": "New Neutrals/Black",        "usage": "title, btn bg"     },
+            { "hex": "#565C79",                 "name": "Body text",          "token": "New Neutrals/Darkest Grey", "usage": "body copy"         },
+            { "hex": "#DDDFEB",                 "name": "Image border",       "token": "New Neutrals/Light Grey",   "usage": "img outline"       }
+          ]
+        },
+        {
+          "group": "Brand & Buttons",
+          "items": [
+            { "hex": "#CB333B",                 "name": "SDM Red (illustration)", "token": "Brand/SDM Red",         "usage": "map pins"          },
+            { "hex": "#1A1F3C",                 "name": "Primary btn background","token": "New Neutrals/Black",     "usage": "btn-primary"       },
+            { "hex": "#FFFFFF", "border": true, "name": "Primary btn label",  "token": "New Neutrals/White",        "usage": "btn-primary text"  },
+            { "hex": null,      "transparent": true, "name": "Tertiary btn background", "token": null,             "usage": "btn-tertiary"      }
+          ]
+        }
+      ],
+
+      "typography": [
+        {
+          "sampleText": "Enable Location",
+          "sampleStyle": "font-family:'SF Pro Display','DM Sans',sans-serif; font-size:20px; font-weight:600; color:#1A1F3C; line-height:24px; letter-spacing:0.38px;",
+          "label": "Dialog title",
+          "token": "Titles/Title 3",
+          "detail": "SF Pro Display · 20px · 600 · lh 24px · ls 0.38px"
+        },
+        {
+          "sampleText": "Turn on location to discover nearby health centers and stores.",
+          "sampleStyle": "font-family:'SF Pro Text','DM Sans',sans-serif; font-size:13px; font-weight:400; color:#565C79; line-height:18px;",
+          "label": "Body / description",
+          "token": "Body/Body 4 Regular",
+          "detail": "SF Pro Text · 13px · 400 · lh 18px · ls 0"
+        },
+        {
+          "sampleText": "Enable location",
+          "sampleStyle": "font-family:'SF Pro Text','DM Sans',sans-serif; font-size:13px; font-weight:600; color:#ffffff; line-height:18px;",
+          "sampleBg": "#1A1F3C",
+          "label": "Primary button label",
+          "token": "Body/Body 4 Bold",
+          "detail": "SF Pro Text · 13px · 600 · lh 18px · ls 0"
+        },
+        {
+          "sampleText": "Not now",
+          "sampleStyle": "font-family:'SF Pro Text','DM Sans',sans-serif; font-size:13px; font-weight:600; color:#1A1F3C; line-height:18px;",
+          "label": "Tertiary button label",
+          "token": "Body/Body 4 Bold",
+          "detail": "SF Pro Text · 13px · 600 · lh 18px · ls 0"
+        }
+      ],
+
+      "cssOutput": ".dialog {\n  display: flex;\n  width: 358px;\n  padding: var(--app-foundations-spacing-sp-4, 16px);\n  flex-direction: column;\n  align-items: flex-start;\n  gap: var(--app-foundations-spacing-sp-6, 24px);\n  border-radius: var(--app-foundations-radius-large, 20px);\n  background: var(--new-neutrals-white, #FFF);\n}\n\n.dialog__image {\n  border-radius: var(--app-foundations-radius-small, 8px);\n  border: 0.81px solid var(--new-neutrals-light-grey, #DDDFEB);\n  height: 227px;\n}\n\n.dialog__title {\n  color: var(--new-neutrals-black, #1A1F3C);\n  font-size: 20px;\n  font-weight: 600;\n  line-height: 24px;\n  letter-spacing: 0.38px;\n}\n\n.dialog__body {\n  color: var(--new-neutrals-darkest-grey, #565C79);\n  font-size: 13px;\n  font-weight: 400;\n  line-height: 18px;\n}\n\n.dialog__btn-primary {\n  padding: 12px var(--app-foundations-spacing-sp-5, 20px);\n  background: var(--new-neutrals-black, #1A1F3C);\n  border-radius: var(--app-foundations-radius-full, 24px);\n  color: var(--new-neutrals-white, #FFF);\n  font-size: 13px;\n  font-weight: 600;\n}"
+    }
+  ]
+}

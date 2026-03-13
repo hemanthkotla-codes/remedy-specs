@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading… · Remedy DS</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #ECEEF5; --surface: #ffffff; --surface-2: #F5F6FA; --border: #DDDFEB;
+  --text-primary: #1A1F3C; --text-secondary: #565C79; --text-muted: #8C92AF;
+  --accent: #005897; --accent-bg: #F4FAFF;
+  --green: #00853D; --green-bg: #F2F9F5;
+  --red: #CB333B; --red-bg: #FFF4F5;
+  --mono: 'DM Mono', monospace; --sans: 'DM Sans', sans-serif;
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+}
+
+body { font-family: var(--sans); background: var(--bg); color: var(--text-primary); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+/* ─── HEADER ─── */
+.header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px); }
+.header-left { display: flex; align-items: center; gap: 12px; }
+.ds-pill { background: var(--text-primary); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 9px; border-radius: 5px; }
+.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); }
+.breadcrumb a { color: var(--text-muted); text-decoration: none; } .breadcrumb a:hover { color: var(--accent); }
+.breadcrumb span { color: var(--text-primary); font-weight: 500; }
+.breadcrumb-sep { color: var(--border); }
+.header-right { display: flex; align-items: center; gap: 16px; }
+.status { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--green); background: var(--green-bg); padding: 4px 12px; border-radius: 99px; }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+.figma-btn { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted); text-decoration: none; font-family: var(--mono); padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.15s; }
+.figma-btn:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-bg); }
+
+/* ─── PAGE ─── */
+.page { max-width: 1160px; margin: 0 auto; padding: 48px 40px; }
+.comp-header { margin-bottom: 8px; display: flex; align-items: baseline; gap: 16px; }
+.comp-name { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
+.comp-variant-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-bg); padding: 3px 8px; border-radius: 4px; }
+.comp-desc { font-size: 14px; color: var(--text-secondary); margin-bottom: 48px; max-width: 520px; line-height: 1.6; }
+
+/* ─── SECTIONS ─── */
+.section { margin-bottom: 48px; }
+.section-title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ─── PREVIEW ─── */
+.preview-shell { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+.preview-bar { background: var(--surface-2); border-bottom: 1px solid var(--border); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
+.window-dots { display: flex; gap: 6px; }
+.window-dot { width: 10px; height: 10px; border-radius: 50%; }
+.preview-meta { font-size: 11px; font-family: var(--mono); color: var(--text-muted); }
+.preview-stage { padding: 56px 40px; display: flex; justify-content: center; align-items: center; background: radial-gradient(ellipse at 30% 20%, rgba(203,51,59,0.04) 0%, transparent 60%), repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(221,223,235,0.4) 23px, rgba(221,223,235,0.4) 24px), repeating-linear-gradient(90deg, transparent, transparent 23px, rgba(221,223,235,0.4) 23px, rgba(221,223,235,0.4) 24px); }
+
+/* ─── ANATOMY ─── */
+.anatomy-wrap { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-md); display: grid; grid-template-columns: auto 1fr; overflow: visible; }
+.anatomy-stage { padding: 40px 64px 40px 40px; background: var(--surface-2); border-right: 1px solid var(--border); border-radius: var(--r-md) 0 0 var(--r-md); display: flex; align-items: flex-start; justify-content: center; min-width: 0; }
+.anatomy-annotated { position: relative; display: inline-block; }
+.ann-num { position: absolute; width: 20px; height: 20px; border-radius: 50%; background: var(--text-primary); color: white; font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; z-index: 10; cursor: default; box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+.anatomy-legend { padding: 32px; display: flex; flex-direction: column; justify-content: center; gap: 20px; border-radius: 0 var(--r-md) var(--r-md) 0; }
+.legend-item { display: flex; align-items: flex-start; gap: 12px; }
+.legend-num { width: 20px; height: 20px; border-radius: 50%; background: var(--text-primary); color: white; font-size: 9px; font-weight: 700; flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+.legend-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+.legend-text strong { color: var(--text-primary); font-weight: 600; }
+.legend-sub { font-size: 11px; color: var(--text-muted); font-family: var(--mono); margin-top: 3px; }
+
+/* ─── SPACING INSPECTOR ─── */
+.insp-layout { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; }
+.insp-panel { display: flex; flex-direction: column; gap: 12px; position: sticky; top: 80px; }
+.token-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; transition: box-shadow 0.15s; }
+.tc-header { padding: 12px 16px; background: var(--surface-2); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+.tc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); transition: background 0.2s; flex-shrink: 0; }
+.tc-label { font-size: 11px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; }
+.tc-body { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+.tc-field-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+.tc-token-box { font-family: var(--mono); font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-bg); padding: 7px 10px; border-radius: 6px; min-height: 32px; display: flex; align-items: center; }
+.tc-value { font-family: var(--mono); font-size: 22px; font-weight: 700; color: var(--text-primary); }
+.tc-cssvar { font-family: var(--mono); font-size: 9px; color: var(--text-secondary); line-height: 1.6; word-break: break-all; }
+.tc-copy-bar { padding: 10px 16px; border-top: 1px solid var(--border); background: var(--surface-2); display: flex; justify-content: flex-end; }
+.tc-copy-btn { font-family: var(--mono); font-size: 10px; color: var(--accent); background: var(--accent-bg); border: 1px solid rgba(0,88,151,0.2); border-radius: 4px; padding: 4px 12px; cursor: pointer; transition: all 0.15s; }
+.tc-copy-btn:hover { background: var(--accent); color: #fff; }
+
+/* ─── SPEC CARD ─── */
+.spec-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; }
+.spec-card-head { padding: 10px 16px; background: var(--surface-2); border-bottom: 1px solid var(--border); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+.t-row { display: grid; grid-template-columns: 110px 1fr auto; align-items: center; padding: 11px 16px; border-bottom: 1px solid var(--border); gap: 12px; transition: background 0.12s; }
+.t-row:last-child { border-bottom: none; }
+.t-row.tr-lit { background: rgba(0,88,151,0.07); }
+.t-prop { font-size: 12px; font-weight: 500; color: var(--text-secondary); }
+.t-token { font-family: var(--mono); font-size: 11px; background: var(--accent-bg); color: var(--accent); padding: 3px 8px; border-radius: 4px; display: inline-block; }
+.t-val { font-family: var(--mono); font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+
+/* ─── COLOURS ─── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.color-row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.color-row:last-child { border-bottom: none; }
+.swatch { width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0; border: 1px solid rgba(0,0,0,0.07); }
+.color-meta { flex: 1; }
+.color-name { font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+.color-token-name { font-family: var(--mono); font-size: 11px; color: var(--accent); }
+.color-hex { font-family: var(--mono); font-size: 11px; color: var(--text-muted); text-transform: uppercase; }
+.color-usage { font-size: 11px; color: var(--text-muted); text-align: right; }
+
+/* ─── TYPOGRAPHY ─── */
+.type-row { display: grid; grid-template-columns: 1fr auto; padding: 16px; border-bottom: 1px solid var(--border); gap: 24px; align-items: center; }
+.type-row:last-child { border-bottom: none; }
+.type-meta-col { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+.type-token-badge { font-family: var(--mono); font-size: 11px; background: var(--accent-bg); color: var(--accent); padding: 3px 8px; border-radius: 4px; }
+.type-detail { font-family: var(--mono); font-size: 10px; color: var(--text-muted); }
+
+/* ─── CODE ─── */
+.code-wrap { background: #131629; border-radius: var(--r-md); overflow: hidden; border: 1px solid rgba(255,255,255,0.06); }
+.code-header { padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: space-between; }
+.code-lang { font-size: 11px; color: #565C79; font-family: var(--mono); }
+.copy-btn { font-size: 11px; color: #565C79; background: none; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; font-family: var(--mono); padding: 3px 10px; border-radius: 4px; transition: all 0.15s; }
+.copy-btn:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
+.code-body { padding: 20px; font-family: var(--mono); font-size: 12px; line-height: 2; overflow-x: auto; color: #DDDFEB; }
+.c-sel { color: #6ABBE9; } .c-prop { color: #8C92AF; } .c-val { color: #DDDFEB; }
+.c-tok { color: #FFAE58; } .c-cmt { color: #3D4466; font-style: italic; } .c-punc { color: #565C79; }
+.indent1 { display: block; padding-left: 20px; } .indent2 { display: block; padding-left: 40px; }
+
+/* ─── FOOTER ─── */
+.footer { border-top: 1px solid var(--border); margin-top: 16px; padding: 24px 40px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--text-muted); }
+.footer-token { font-family: var(--mono); font-size: 11px; }
+
+/* ─── INSPECTOR DARK ─── */
+@keyframes pulse2 { 0%{transform:translate(-50%,-50%) scale(0.8);opacity:0.8;} 100%{transform:translate(-50%,-50%) scale(2.2);opacity:0;} }
+.insp-active { outline: 2px solid #4D9EFF !important; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <span class="ds-pill">Remedy DS</span>
+    <div class="breadcrumb">
+      <a href="index.html">Components</a>
+      <span class="breadcrumb-sep">/</span>
+      <span id="bc-category">—</span>
+      <span class="breadcrumb-sep">/</span>
+      <span id="bc-name">—</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="status" id="hdr-status"><span class="status-dot"></span>Published</span>
+    <a class="figma-btn" id="figma-link" href="#" target="_blank">
+      <svg viewBox="0 0 38 57" fill="none" width="12" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M19 28.5C19 25.98 20 23.56 21.78 21.78C23.56 20 25.98 19 28.5 19C31.02 19 33.44 20 35.22 21.78C37 23.56 38 25.98 38 28.5C38 31.02 37 33.44 35.22 35.22C33.44 37 31.02 38 28.5 38C25.98 38 23.56 37 21.78 35.22C20 33.44 19 31.02 19 28.5Z" fill="currentColor"/></svg>
+      Open in Figma
+    </a>
+  </div>
+</div>
+
+<div class="page" id="page-content">
+  <div style="color:var(--text-muted);padding:64px;text-align:center;">Loading component…</div>
+</div>
+
+<div class="footer" id="page-footer" style="display:none;">
+  <span id="footer-meta">Remedy Design System · Loblaw Digital</span>
+  <span class="footer-token" id="footer-tokens">—</span>
+</div>
+
+<script>
+// ─── LOAD DATA ───────────────────────────────────────────────────────────────
+async function init() {
+  const params = new URLSearchParams(location.search);
+  const compId = params.get('id');
+
+  const res = await fetch('data/components.json');
+  const data = await res.json();
+  const comp = data.components.find(c => c.id === compId);
+
+  if (!comp) {
+    document.getElementById('page-content').innerHTML = `
+      <div style="text-align:center;padding:80px;color:var(--text-muted);">
+        <div style="font-size:40px;margin-bottom:16px;">🔍</div>
+        <h2 style="color:var(--text-secondary);margin-bottom:8px;">Component not found</h2>
+        <p>No component with id <code>${compId}</code> exists in the registry.</p>
+        <a href="index.html" style="color:var(--accent);margin-top:16px;display:inline-block;">← Back to library</a>
+      </div>`;
+    return;
+  }
+
+  document.title = `${comp.name}${comp.variant ? ' / ' + comp.variant : ''} · Remedy DS`;
+
+  // Header
+  document.getElementById('bc-category').textContent = comp.category;
+  document.getElementById('bc-name').textContent = comp.name;
+  if (comp.status !== 'published') {
+    const s = document.getElementById('hdr-status');
+    s.textContent = 'Draft'; s.querySelector('.status-dot').style.background = 'var(--text-muted)';
+    s.style.color = 'var(--text-muted)'; s.style.background = 'var(--surface-2)';
+  }
+  const figmaUrl = `https://www.figma.com/design/${comp.figmaFileId}/?node-id=${comp.figmaNodeId}`;
+  document.getElementById('figma-link').href = figmaUrl;
+
+  // Footer
+  document.getElementById('footer-meta').textContent = `Remedy Design System · Loblaw Digital · Node ${comp.figmaNodeId}`;
+  document.getElementById('footer-tokens').textContent = data._meta.tokenSet;
+  document.getElementById('page-footer').style.display = 'flex';
+
+  // Render page
+  renderPage(comp);
+}
+
+// ─── RENDER ALL SECTIONS ────────────────────────────────────────────────────
+function renderPage(comp) {
+  const html = buildDevModeHtml(comp.devModeHtml, 'prev');
+
+  const page = document.getElementById('page-content');
+  page.innerHTML = `
+    <div class="comp-header">
+      <h1 class="comp-name">${comp.name}</h1>
+      ${comp.variant ? `<span class="comp-variant-tag">${comp.variant}</span>` : ''}
+    </div>
+    <p class="comp-desc">${comp.description || ''}</p>
+
+    <!-- 1. PREVIEW -->
+    <div class="section">
+      <div class="section-title">Live Preview</div>
+      <div class="preview-shell">
+        <div class="preview-bar">
+          <div class="window-dots">
+            <div class="window-dot" style="background:#FF5F57"></div>
+            <div class="window-dot" style="background:#FFBD2E"></div>
+            <div class="window-dot" style="background:#28CA41"></div>
+          </div>
+          <span class="preview-meta">${comp.name}${comp.variant ? ' / ' + comp.variant : ''} · Default</span>
+          <span style="font-size:11px;color:var(--text-muted);font-family:var(--mono);">${comp.dimensions?.width || ''}${comp.dimensions?.width ? 'px' : ''}</span>
+        </div>
+        <div class="preview-stage">
+          ${buildDevModeHtml(comp.devModeHtml, 'live')}
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. ANATOMY -->
+    <div class="section">
+      <div class="section-title">Anatomy</div>
+      <div class="anatomy-wrap">
+        <div class="anatomy-stage">
+          <div class="anatomy-annotated" id="anatomy-root" style="position:relative;display:inline-block;">
+            ${buildDevModeHtml(comp.devModeHtml, 'anat')}
+            ${comp.anatomy.map(a => `<div class="ann-num" id="ann-${a.id}" style="position:absolute;opacity:0;">${a.id}</div>`).join('')}
+            <svg id="ann-svg" style="position:absolute;top:0;left:0;pointer-events:none;overflow:visible;" width="0" height="0"></svg>
+          </div>
+        </div>
+        <div class="anatomy-legend">
+          ${comp.anatomy.map(a => `
+            <div class="legend-item">
+              <div class="legend-num">${a.id}</div>
+              <div>
+                <div class="legend-text"><strong>${a.label}</strong></div>
+                ${a.sub ? `<div class="legend-sub">${a.sub}</div>` : ''}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. SPACING INSPECTOR -->
+    <div class="section">
+      <div class="section-title">Spacing &amp; Layout</div>
+      <div class="insp-layout">
+        <!-- Inspector stage -->
+        <div style="background:#1A1C28;border-radius:16px;border:1px solid rgba(255,255,255,0.07);overflow:hidden;width:fit-content;">
+          <div style="padding:9px 16px;background:#13141E;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;">
+            <div style="display:flex;gap:6px;">
+              <div style="width:10px;height:10px;border-radius:50%;background:#FF5F57;"></div>
+              <div style="width:10px;height:10px;border-radius:50%;background:#FFBD2E;"></div>
+              <div style="width:10px;height:10px;border-radius:50%;background:#28CA41;"></div>
+            </div>
+            <span style="font-family:var(--mono);font-size:11px;color:#3D4466;">hover elements to inspect</span>
+            <span style="font-family:var(--mono);font-size:10px;color:#2A2D45;">${comp.dimensions?.width || ''}${comp.dimensions?.width ? 'px' : ''}</span>
+          </div>
+          <div style="padding:48px 40px;position:relative;">
+            <div id="insp-root" style="position:relative;width:${comp.dimensions?.width || 360}px;">
+              ${buildDevModeHtml(comp.devModeHtml, 'comp')}
+              <canvas id="meas-canvas" style="position:absolute;top:0;left:0;pointer-events:none;z-index:100;"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right panel -->
+        <div class="insp-panel">
+          <div class="token-card" id="token-card">
+            <div class="tc-header" id="tc-header">
+              <div class="tc-dot" id="tc-dot"></div>
+              <span class="tc-label" id="tc-label">Hover an element</span>
+            </div>
+            <div class="tc-body">
+              <div>
+                <div class="tc-field-label">Token</div>
+                <div class="tc-token-box" id="tc-token">—</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                <div>
+                  <div class="tc-field-label">Value</div>
+                  <div class="tc-value" id="tc-value">—</div>
+                </div>
+                <div>
+                  <div class="tc-field-label">CSS Variable</div>
+                  <div class="tc-cssvar" id="tc-cssvar">—</div>
+                </div>
+              </div>
+            </div>
+            <div class="tc-copy-bar">
+              <button class="tc-copy-btn" id="tc-copy" onclick="copyCurrentToken()">copy var()</button>
+            </div>
+          </div>
+
+          <div class="spec-card">
+            <div class="spec-card-head">All Layout Tokens</div>
+            ${comp.spacingTable.map(row => `
+              <div class="t-row" id="${row.id}">
+                <span class="t-prop">${row.prop}</span>
+                <span class="t-token">${row.token}</span>
+                <span class="t-val">${row.value}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. COLOURS -->
+    <div class="section">
+      <div class="section-title">Colour Tokens</div>
+      <div class="two-col">
+        ${comp.colors.map(group => `
+          <div class="spec-card">
+            <div class="spec-card-head">${group.group}</div>
+            ${group.items.map(item => `
+              <div class="color-row">
+                <div class="swatch" style="background:${item.transparent ? 'transparent' : item.hex};${item.border ? 'border:1px solid #DDDFEB;' : ''}${item.transparent ? 'background-image:repeating-linear-gradient(45deg,#DDDFEB 0,#DDDFEB 1px,transparent 0,transparent 50%);background-size:6px 6px;' : ''}"></div>
+                <div class="color-meta">
+                  <div class="color-name">${item.name}</div>
+                  <div class="color-token-name">${item.token || '—'}</div>
+                </div>
+                <div>
+                  <div class="color-hex">${item.transparent ? 'transparent' : item.hex}</div>
+                  <div class="color-usage" style="margin-top:2px;">${item.usage}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- 5. TYPOGRAPHY -->
+    <div class="section">
+      <div class="section-title">Typography</div>
+      <div class="spec-card">
+        <div class="spec-card-head">Text Styles</div>
+        ${comp.typography.map(t => `
+          <div class="type-row">
+            <div>
+              ${t.sampleBg
+                ? `<button style="background:${t.sampleBg};border:none;border-radius:24px;padding:10px 24px;cursor:pointer;"><span style="${t.sampleStyle}">${t.sampleText}</span></button>`
+                : `<div style="${t.sampleStyle}">${t.sampleText}</div>`
+              }
+              <div style="font-size:11px;color:var(--text-muted);margin-top:${t.sampleBg ? 8 : 4}px;">${t.label}</div>
+            </div>
+            <div class="type-meta-col">
+              <span class="type-token-badge">${t.token}</span>
+              <span class="type-detail">${t.detail}</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- 6. CSS OUTPUT -->
+    <div class="section">
+      <div class="section-title">CSS Output</div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <span class="code-lang">css · ${comp.name} container</span>
+          <button class="copy-btn" id="css-copy-btn" onclick="copyCss()">Copy</button>
+        </div>
+        <div class="code-body" id="css-body">${syntaxHighlightCss(comp.cssOutput)}</div>
+      </div>
+    </div>
+  `;
+
+  // Run post-render JS
+  requestAnimationFrame(() => {
+    positionAnatomyDots(comp);
+    initSpacingInspector(comp);
+  });
+
+  // Store CSS for copy
+  window._cssOutput = comp.cssOutput;
+}
+
+// ─── HTML BUILDER ────────────────────────────────────────────────────────────
+function buildDevModeHtml(template, prefix) {
+  if (!template) return '<div style="color:#8C92AF;padding:24px;text-align:center;">No preview HTML</div>';
+  return template.replace(/\{\{ID\}\}/g, prefix);
+}
+
+// ─── ANATOMY DOTS ────────────────────────────────────────────────────────────
+function positionAnatomyDots(comp) {
+  const root = document.getElementById('anatomy-root');
+  if (!root) return;
+  const rootR = root.getBoundingClientRect();
+  const svg = document.getElementById('ann-svg');
+  svg.innerHTML = '';
+  svg.setAttribute('width', rootR.width);
+  svg.setAttribute('height', rootR.height);
+  const DOT = 20, GAP = 16;
+
+  comp.anatomy.forEach(({ id, targetSuffix, anchorX, anchorY }) => {
+    const el = document.getElementById(`anat-${targetSuffix}`);
+    const dotEl = document.getElementById(`ann-${id}`);
+    if (!el || !dotEl) return;
+    const r = el.getBoundingClientRect();
+    const ex = r.right - rootR.left;
+    const ey = anchorY === 'top' ? r.top - rootR.top : anchorY === 'bottom' ? r.bottom - rootR.top : (r.top + r.bottom) / 2 - rootR.top;
+    const dx = ex + GAP + DOT / 2, dy = ey;
+    dotEl.style.left = (dx - DOT / 2) + 'px';
+    dotEl.style.top  = (dy - DOT / 2) + 'px';
+    dotEl.style.opacity = '1';
+
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', ex); line.setAttribute('y1', ey);
+    line.setAttribute('x2', dx - DOT / 2); line.setAttribute('y2', dy);
+    line.setAttribute('stroke', '#3D4466'); line.setAttribute('stroke-width', '1');
+    line.setAttribute('stroke-dasharray', '3 2');
+    svg.appendChild(line);
+  });
+}
+
+// ─── SPACING INSPECTOR ───────────────────────────────────────────────────────
+function initSpacingInspector(comp) {
+  const canvas = document.getElementById('meas-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const root = document.getElementById('insp-root');
+  let currentZone = null, lockedZone = null, activeTr = null;
+
+  const zones = comp.spacingZones;
+
+  function sizeCanvas() {
+    const r = root.getBoundingClientRect();
+    canvas.width = r.width; canvas.height = r.height;
+    canvas.style.width = r.width + 'px'; canvas.style.height = r.height + 'px';
+  }
+
+  function rel(elRect) {
+    const rr = root.getBoundingClientRect();
+    return { x: elRect.left-rr.left, y: elRect.top-rr.top, w: elRect.width, h: elRect.height, right: elRect.right-rr.left, bottom: elRect.bottom-rr.top };
+  }
+
+  function drawLine(x1,y1,x2,y2,c) { ctx.beginPath(); ctx.strokeStyle=c; ctx.lineWidth=1; ctx.setLineDash([]); ctx.moveTo(Math.round(x1)+.5,Math.round(y1)+.5); ctx.lineTo(Math.round(x2)+.5,Math.round(y2)+.5); ctx.stroke(); }
+  function drawCap(x1,y1,x2,y2,c) { const isH=Math.abs(y2-y1)<1; ctx.beginPath(); ctx.strokeStyle=c; ctx.lineWidth=1; if(isH){ctx.moveTo(Math.round(x1)+.5,y1-4);ctx.lineTo(Math.round(x1)+.5,y1+4);ctx.moveTo(Math.round(x2)+.5,y2-4);ctx.lineTo(Math.round(x2)+.5,y2+4);}else{ctx.moveTo(x1-4,Math.round(y1)+.5);ctx.lineTo(x1+4,Math.round(y1)+.5);ctx.moveTo(x2-4,Math.round(y2)+.5);ctx.lineTo(x2+4,Math.round(y2)+.5);}ctx.stroke(); }
+  function drawLabel(text,cx,cy,c) { const pad=4; ctx.font='bold 10px "DM Mono",monospace'; const tw=ctx.measureText(text).width; const bw=tw+pad*2,bh=16,bx=cx-bw/2,by=cy-bh/2; ctx.fillStyle=c; ctx.beginPath(); ctx.roundRect(bx,by,bw,bh,3); ctx.fill(); ctx.fillStyle='#fff'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(text,cx,cy+0.5); }
+  function fillRect(x,y,w,h,c,a) { ctx.save(); ctx.globalAlpha=a; ctx.fillStyle=c; ctx.fillRect(x,y,w,h); ctx.restore(); }
+
+  function drawPadding(zone, r) {
+    const c=zone.color, p=zone.padding;
+    fillRect(r.x,r.y,r.w,p.top,c,0.18); fillRect(r.x,r.bottom-p.bottom,r.w,p.bottom,c,0.18);
+    fillRect(r.x,r.y+p.top,p.left,r.h-p.top-p.bottom,c,0.18); fillRect(r.right-p.right,r.y+p.top,p.right,r.h-p.top-p.bottom,c,0.18);
+    const cx=r.x+r.w/2;
+    drawLine(cx,r.y,cx,r.y+p.top,c); drawCap(cx,r.y,cx,r.y+p.top,c); drawLabel(p.top+'px',cx+28,r.y+p.top/2,c);
+    drawLine(cx,r.bottom-p.bottom,cx,r.bottom,c); drawCap(cx,r.bottom-p.bottom,cx,r.bottom,c); drawLabel(p.bottom+'px',cx+28,r.bottom-p.bottom/2,c);
+    const my=r.y+r.h/2;
+    drawLine(r.x,my,r.x+p.left,my,c); drawCap(r.x,my,r.x+p.left,my,c); drawLabel(p.left+'px',r.x+p.left/2,my-14,c);
+    drawLine(r.right-p.right,my,r.right,my,c); drawCap(r.right-p.right,my,r.right,my,c); drawLabel(p.right+'px',r.right-p.right/2,my-14,c);
+  }
+
+  function drawGapV(zone, r) {
+    const el=document.getElementById('comp-'+zone.targetSuffix);
+    if (!el) return;
+    const children=Array.from(el.children).filter(c=>c.offsetHeight>0);
+    const rr=root.getBoundingClientRect(), c=zone.color;
+    for(let i=0;i<children.length-1;i++){
+      const a=children[i].getBoundingClientRect(), b=children[i+1].getBoundingClientRect();
+      const y1=a.bottom-rr.top, y2=b.top-rr.top, gh=y2-y1;
+      if(gh<=0) continue;
+      fillRect(r.x,y1,r.w,gh,c,0.22);
+      drawLine(r.x,y1,r.right,y1,c); drawLine(r.x,y2,r.right,y2,c);
+      drawLabel(Math.round(gh)+'px',r.x+r.w/2,y1+gh/2,c);
+    }
+  }
+
+  function drawRadius(zone, r) {
+    const rad=zone.radius, c=zone.color;
+    ctx.strokeStyle=c; ctx.lineWidth=1.5; ctx.setLineDash([]);
+    ctx.beginPath(); ctx.arc(r.x+rad,r.y+rad,rad,Math.PI,Math.PI*1.5); ctx.stroke();
+    ctx.beginPath(); ctx.arc(r.right-rad,r.y+rad,rad,Math.PI*1.5,0); ctx.stroke();
+    drawLabel('r '+rad+'px',r.x+rad+20,r.y+rad/2+4,c);
+  }
+
+  function renderZone(zone) {
+    sizeCanvas(); ctx.clearRect(0,0,canvas.width,canvas.height);
+    if(!zone) return;
+    const el=document.getElementById('comp-'+zone.targetSuffix);
+    if (!el) return;
+    const r=rel(el.getBoundingClientRect());
+    if(zone.draw==='padding') drawPadding(zone,r);
+    else if(zone.draw==='gap-v') drawGapV(zone,r);
+    else if(zone.draw==='radius') drawRadius(zone,r);
+  }
+
+  function setTableRow(id) {
+    if(activeTr) document.getElementById(activeTr)?.classList.remove('tr-lit');
+    if(id){document.getElementById(id)?.classList.add('tr-lit');activeTr=id;}
+    else activeTr=null;
+  }
+
+  function hexAlpha(hex,a){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return `rgba(${r},${g},${b},${a})`;}
+
+  function updateCard(zone) {
+    const c=zone?zone.color:null;
+    document.getElementById('tc-dot').style.background=c||'var(--border)';
+    document.getElementById('tc-label').textContent=zone?zone.label:'Hover an element';
+    const tok=document.getElementById('tc-token'); tok.textContent=zone?zone.token:'—'; tok.style.color=c||'var(--accent)'; tok.style.background=c?hexAlpha(c,0.1):'var(--accent-bg)';
+    document.getElementById('tc-value').textContent=zone?zone.value:'—'; document.getElementById('tc-value').style.color=c||'var(--text-primary)';
+    document.getElementById('tc-cssvar').textContent=zone?`var(${zone.cssVar}, ${zone.value})`:'—';
+    document.getElementById('tc-copy').style.color=c||'var(--accent)';
+    currentZone=zone;
+  }
+
+  function lockZone(zone) {
+    lockedZone=zone;
+    const hdr=document.getElementById('tc-header');
+    if(zone){hdr.style.borderBottom=`2px solid ${zone.color}`;document.getElementById('tc-label').textContent='⌥ '+zone.label+' — locked';}
+    else hdr.style.borderBottom='';
+  }
+
+  function clearAll() {
+    zones.forEach(z=>{const e=document.getElementById('comp-'+z.targetSuffix);if(e){e.classList.remove('insp-active');e.style.outline='2px solid transparent';}});
+    ctx.clearRect(0,0,canvas.width,canvas.height); updateCard(null); setTableRow(null);
+  }
+
+  window.copyCurrentToken = function() {
+    if(!currentZone) return;
+    navigator.clipboard.writeText(`var(${currentZone.cssVar}, ${currentZone.value})`);
+    const btn=document.getElementById('tc-copy'); btn.textContent='copied!'; setTimeout(()=>btn.textContent='copy var()',1600);
+  };
+
+  zones.forEach(zone => {
+    const el=document.getElementById('comp-'+zone.targetSuffix);
+    if(!el) return;
+    el.style.cursor='crosshair'; el.style.transition='outline 0.1s ease'; el.style.outline='2px solid transparent'; el.style.outlineOffset='1px';
+
+    el.addEventListener('mouseenter',()=>{
+      if(lockedZone) return;
+      zones.forEach(z=>document.getElementById('comp-'+z.targetSuffix)?.classList.remove('insp-active'));
+      el.classList.add('insp-active'); renderZone(zone); updateCard(zone); setTableRow(zone.tableId);
+    });
+    el.addEventListener('mouseleave',(e)=>{
+      if(lockedZone) return;
+      if(el.contains(e.relatedTarget)) return;
+      el.classList.remove('insp-active'); ctx.clearRect(0,0,canvas.width,canvas.height); updateCard(null); setTableRow(null);
+    });
+    el.addEventListener('click',(e)=>{
+      e.stopPropagation();
+      if(lockedZone===zone){lockZone(null);clearAll();}
+      else{zones.forEach(z=>document.getElementById('comp-'+z.targetSuffix)?.classList.remove('insp-active'));el.classList.add('insp-active');renderZone(zone);updateCard(zone);setTableRow(zone.tableId);lockZone(zone);}
+    });
+  });
+
+  document.getElementById('insp-root').addEventListener('click',e=>{
+    if(!e.target.closest('[id^="comp-"]')){lockZone(null);clearAll();}
+  });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&lockedZone){lockZone(null);clearAll();} });
+  sizeCanvas(); window.addEventListener('resize',()=>{sizeCanvas();if(currentZone)renderZone(currentZone);});
+}
+
+// ─── CSS COPY ─────────────────────────────────────────────────────────────────
+window.copyCss = function() {
+  navigator.clipboard.writeText(window._cssOutput || '');
+  const btn=document.getElementById('css-copy-btn'); btn.textContent='Copied!'; setTimeout(()=>btn.textContent='Copy',1800);
+};
+
+// ─── CSS SYNTAX HIGHLIGHT ────────────────────────────────────────────────────
+function syntaxHighlightCss(css) {
+  if (!css) return '';
+  return css
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/(\/\*.*?\*\/)/g,'<span class="c-cmt">$1</span>')
+    .replace(/^(\s*)([\w-]+)\s*\{/gm,'$1<span class="c-sel">$2</span> <span class="c-punc">{</span>')
+    .replace(/\}/g,'<span class="c-punc">}</span>')
+    .replace(/^\s{2}([\w-]+):/gm,(m,prop)=>`  <span class="c-prop">${prop}</span>:`)
+    .replace(/(var\([^)]+\))/g,'<span class="c-tok">$1</span>')
+    .replace(/;/g,'<span class="c-punc">;</span>')
+    .split('\n').map(line => `<span>${line}</span>`).join('\n');
+}
+
+init();
+</script>
+</body>
+</html>

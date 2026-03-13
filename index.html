@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remedy DS — Component Library</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #ECEEF5;
+  --surface: #ffffff;
+  --surface-2: #F5F6FA;
+  --border: #DDDFEB;
+  --text-primary: #1A1F3C;
+  --text-secondary: #565C79;
+  --text-muted: #8C92AF;
+  --accent: #005897;
+  --accent-bg: #F4FAFF;
+  --green: #00853D;
+  --green-bg: #F2F9F5;
+  --mono: 'DM Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── HEADER ─── */
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(8px);
+}
+.header-left { display: flex; align-items: center; gap: 12px; }
+.ds-pill {
+  background: var(--text-primary); color: #fff;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 4px 9px; border-radius: 5px;
+}
+.header-title { font-size: 14px; font-weight: 600; }
+.header-sub { font-size: 12px; color: var(--text-muted); font-family: var(--mono); }
+
+/* ─── SEARCH BAR ─── */
+.search-wrap {
+  padding: 32px 40px 0;
+  display: flex; gap: 12px; align-items: center;
+}
+.search-input {
+  flex: 1; max-width: 480px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 10px 16px;
+  font-size: 13px; font-family: var(--sans); color: var(--text-primary);
+  outline: none; transition: border-color 0.15s;
+}
+.search-input:focus { border-color: var(--accent); }
+.search-input::placeholder { color: var(--text-muted); }
+
+.filter-pill {
+  font-size: 11px; font-weight: 600; padding: 6px 14px;
+  border-radius: 99px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--text-secondary);
+  cursor: pointer; transition: all 0.15s;
+}
+.filter-pill.active, .filter-pill:hover {
+  background: var(--text-primary); color: #fff; border-color: var(--text-primary);
+}
+
+/* ─── PAGE ─── */
+.page { max-width: 1200px; margin: 0 auto; padding: 32px 40px 64px; }
+
+.section-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ─── GRID ─── */
+.component-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.comp-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  display: flex; flex-direction: column;
+  transition: box-shadow 0.15s, transform 0.15s;
+  cursor: pointer;
+}
+.comp-card:hover {
+  box-shadow: 0 4px 20px rgba(26,31,60,0.10);
+  transform: translateY(-2px);
+}
+
+.comp-preview {
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  height: 200px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(221,223,235,0.4) 23px, rgba(221,223,235,0.4) 24px),
+    repeating-linear-gradient(90deg, transparent, transparent 23px, rgba(221,223,235,0.4) 23px, rgba(221,223,235,0.4) 24px);
+  overflow: hidden;
+}
+
+.comp-info { padding: 16px; }
+.comp-name-row {
+  display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px;
+}
+.comp-name { font-size: 15px; font-weight: 700; }
+.comp-variant {
+  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--accent); background: var(--accent-bg);
+  padding: 2px 7px; border-radius: 4px;
+}
+.comp-desc {
+  font-size: 12px; color: var(--text-secondary); line-height: 1.5;
+  margin-bottom: 12px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.comp-footer {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.comp-category {
+  font-size: 11px; color: var(--text-muted); font-family: var(--mono);
+}
+.comp-status {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 500; color: var(--green);
+  background: var(--green-bg); padding: 3px 10px; border-radius: 99px;
+}
+.status-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
+.comp-status.draft { color: var(--text-muted); background: var(--surface-2); }
+.comp-status.draft .status-dot { background: var(--text-muted); }
+
+/* ─── EMPTY STATE ─── */
+.empty {
+  grid-column: 1 / -1; text-align: center; padding: 64px;
+  color: var(--text-muted);
+}
+.empty-icon { font-size: 40px; margin-bottom: 12px; }
+.empty h3 { font-size: 15px; color: var(--text-secondary); margin-bottom: 6px; }
+.empty p { font-size: 13px; }
+
+/* ─── STATS BAR ─── */
+.stats-bar {
+  display: flex; gap: 32px; margin-bottom: 32px;
+  padding: 20px 24px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg);
+}
+.stat { display: flex; flex-direction: column; gap: 2px; }
+.stat-value { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+.stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+
+/* ─── LOADING ─── */
+.loading {
+  grid-column: 1 / -1; text-align: center; padding: 48px;
+  color: var(--text-muted); font-size: 13px;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <span class="ds-pill">Remedy DS</span>
+    <div>
+      <div class="header-title">Component Library</div>
+    </div>
+  </div>
+  <span class="header-sub" id="token-set-label">Loading…</span>
+</div>
+
+<div class="search-wrap">
+  <input class="search-input" id="search" type="text" placeholder="Search components…" oninput="filterComponents()">
+  <div id="filter-pills" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+</div>
+
+<div class="page">
+  <div class="stats-bar" id="stats-bar" style="display:none;">
+    <div class="stat"><div class="stat-value" id="stat-total">—</div><div class="stat-label">Components</div></div>
+    <div class="stat"><div class="stat-value" id="stat-published">—</div><div class="stat-label">Published</div></div>
+    <div class="stat"><div class="stat-value" id="stat-categories">—</div><div class="stat-label">Categories</div></div>
+    <div class="stat"><div class="stat-value" id="stat-tokens">—</div><div class="stat-label">Token set</div></div>
+  </div>
+
+  <div id="sections"></div>
+</div>
+
+<script>
+let allComponents = [];
+let activeCategory = 'all';
+
+async function init() {
+  const res = await fetch('data/components.json');
+  const data = await res.json();
+  allComponents = data.components;
+
+  // Token set label
+  document.getElementById('token-set-label').textContent = data._meta.tokenSet;
+
+  // Stats
+  const published = allComponents.filter(c => c.status === 'published').length;
+  const categories = [...new Set(allComponents.map(c => c.category))].length;
+  document.getElementById('stat-total').textContent = allComponents.length;
+  document.getElementById('stat-published').textContent = published;
+  document.getElementById('stat-categories').textContent = categories;
+  document.getElementById('stat-tokens').textContent = data._meta.tokenSet.split('/')[0];
+  document.getElementById('stats-bar').style.display = 'flex';
+
+  // Category pills
+  const cats = ['All', ...new Set(allComponents.map(c => c.category))];
+  const pillsEl = document.getElementById('filter-pills');
+  cats.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-pill' + (cat === 'All' ? ' active' : '');
+    btn.textContent = cat;
+    btn.onclick = () => {
+      activeCategory = cat === 'All' ? 'all' : cat;
+      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      filterComponents();
+    };
+    pillsEl.appendChild(btn);
+  });
+
+  renderComponents(allComponents);
+}
+
+function filterComponents() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const filtered = allComponents.filter(c => {
+    const matchCat = activeCategory === 'all' || c.category === activeCategory;
+    const matchQ = !q || c.name.toLowerCase().includes(q) || c.variant?.toLowerCase().includes(q) || c.description?.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+  renderComponents(filtered);
+}
+
+function renderComponents(components) {
+  const sectionsEl = document.getElementById('sections');
+  sectionsEl.innerHTML = '';
+
+  if (components.length === 0) {
+    sectionsEl.innerHTML = '<div class="component-grid"><div class="empty"><div class="empty-icon">🔍</div><h3>No components found</h3><p>Try a different search or category.</p></div></div>';
+    return;
+  }
+
+  // Group by category
+  const byCategory = {};
+  components.forEach(c => {
+    if (!byCategory[c.category]) byCategory[c.category] = [];
+    byCategory[c.category].push(c);
+  });
+
+  Object.entries(byCategory).forEach(([cat, comps]) => {
+    const section = document.createElement('div');
+    section.innerHTML = `<div class="section-title">${cat} <span style="color:var(--text-primary);font-size:11px;">${comps.length}</span></div>`;
+
+    const grid = document.createElement('div');
+    grid.className = 'component-grid';
+
+    comps.forEach(comp => {
+      const card = document.createElement('a');
+      card.className = 'comp-card';
+      card.href = `spec.html?id=${comp.id}`;
+
+      // Mini preview — scale down the Dev Mode HTML
+      const previewHtml = comp.devModeHtml
+        ? comp.devModeHtml.replace(/\{\{ID\}\}/g, 'prev-' + comp.id)
+        : '<div style="color:var(--text-muted);font-size:12px;">No preview</div>';
+
+      card.innerHTML = `
+        <div class="comp-preview">
+          <div style="transform:scale(0.35);transform-origin:center;pointer-events:none;white-space:nowrap;">
+            ${previewHtml}
+          </div>
+        </div>
+        <div class="comp-info">
+          <div class="comp-name-row">
+            <span class="comp-name">${comp.name}</span>
+            ${comp.variant ? `<span class="comp-variant">${comp.variant}</span>` : ''}
+          </div>
+          <div class="comp-desc">${comp.description || ''}</div>
+          <div class="comp-footer">
+            <span class="comp-category">${comp.category}</span>
+            <span class="comp-status ${comp.status !== 'published' ? 'draft' : ''}">
+              <span class="status-dot"></span>
+              ${comp.status === 'published' ? 'Published' : 'Draft'}
+            </span>
+          </div>
+        </div>
+      `;
+
+      grid.appendChild(card);
+    });
+
+    section.appendChild(grid);
+    sectionsEl.appendChild(section);
+  });
+}
+
+init();
+</script>
+</body>
+</html>
