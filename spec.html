@@ -230,7 +230,7 @@ function renderFoundations(){
 }
 function switchCG(idx,btn){document.querySelectorAll('.colour-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('[id^="cg-"]').forEach((el,i)=>el.style.display=i===idx?'':'none');}
 function renderCode(){
-  const n=COMP.name.split(/[s-_]/).map(w=>w[0].toUpperCase()+w.slice(1)).join('');
+  const n=COMP.name.split(/[\s\-_]/).map(w=>w[0].toUpperCase()+w.slice(1)).join('');
   const sp=COMP.spacingTable||[];
   const pad=sp.find(s=>s.prop==='padding')?.value||'16px';
   const gap=sp.find(s=>s.prop?.includes('gap'))?.value||'24px';
